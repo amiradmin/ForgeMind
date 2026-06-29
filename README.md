@@ -1,22 +1,45 @@
 # ForgeMind
 
-ForgeMind is an **Industrial Intelligence Platform** designed for heavy industries such as steel, mining, oil & gas, and manufacturing.
+Enterprise Industrial AI Platform
 
-It integrates:
+## Features
 
-- Predictive Maintenance (AI-based failure prediction)
-- CMMS (Maintenance Management System)
-- Energy Monitoring & Optimization
-- Computer Vision (YOLO-based inspection systems)
-- Asset & Inventory Management
+- Predictive Maintenance
+- CMMS
+- Energy Monitoring
+- Computer Vision
+- Digital Twin
+- AI Analytics
+- Asset Management
+- REST API
+- React Dashboard
 
-## 🏗 Architecture
+## Tech Stack
 
-- Backend: Django + Django REST Framework
-- Frontend: React + TypeScript
-- AI Layer: PyTorch, YOLO, OpenCV
-- Infrastructure: Docker, PostgreSQL, Redis, Celery
+Backend
+- Django
+- Django REST Framework
 
-## 🎯 Goal
+Frontend
+- React
 
-To build a scalable, enterprise-grade platform that connects operational data, AI models, and industrial workflows into a unified system.
+Database
+- PostgreSQL
+
+AI
+- Python
+- PyTorch
+- YOLOv8
+- Scikit-learn
+
+Infrastructure
+- Docker
+- Redis
+- Celery
+
+Future
+- Kubernetes
+- MLflow
+
+
+Each Django application should contain a single business domain.

@@ -33,3 +33,9 @@ redis>=6.0
 Pillow>=11.0
 
 python-decouple
+django-environ
+
+psycopg[binary]
+
+gunicorn
+

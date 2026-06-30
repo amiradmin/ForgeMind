@@ -1,29 +1,76 @@
 version: "3.9"
 
 services:
-  postgres:
-    image: postgres:17
-    container_name: forgemind-postgres
-    restart: unless-stopped
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
 
-    environment:
-      POSTGRES_DB: forgemind
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    container_name: forgemind-backend
+
+    command: python manage.py runserver 0.0.0.0:8000
+
+    volumes:
+      - ../../backend:/app
 
     ports:
-      - "5432:5432"
+      - "8000:8000"
+
+    env_file:
+      - ../../backend/.env
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+    networks:
+      - forgemind-network
+
+  postgres:
+    image: postgres:17
+
+    container_name: forgemind-postgres
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+    ports:
+      - "5432:5432"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    restart: unless-stopped
+
+    networks:
+      - forgemind-network
+
   redis:
     image: redis:8-alpine
+
     container_name: forgemind-redis
-    restart: unless-stopped
 
     ports:
       - "6379:6379"
 
+    restart: unless-stopped
+
+    networks:
+      - forgemind-network
+
 volumes:
   postgres_data:
+
+networks:
+  forgemind-network:
+    driver: bridge

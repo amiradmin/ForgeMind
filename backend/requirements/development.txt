@@ -14,4 +14,3 @@ isort>=6.0
 flake8>=7.0
 pre-commit>=4.0
 ipython
-

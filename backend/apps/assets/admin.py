@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Organization, Plant, Area
+from .models import Organization, Plant, Area, Asset
+
 
 
 @admin.register(Organization)
@@ -21,3 +22,26 @@ class AreaAdmin(admin.ModelAdmin):
     list_display = ("name", "plant", "code")
     list_filter = ("plant",)
     search_fields = ("name", "code")
+
+
+
+@admin.register(Asset)
+class AssetAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "asset_type",
+        "area",
+        "code",
+        "manufacturer",
+    )
+
+    list_filter = (
+        "asset_type",
+        "area",
+    )
+
+    search_fields = (
+        "name",
+        "code",
+        "serial_number",
+    )

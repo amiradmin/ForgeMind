@@ -33,6 +33,8 @@ class AssetAdmin(admin.ModelAdmin):
         "area",
         "code",
         "manufacturer",
+        "model",
+        "installation_date",
     )
 
     list_filter = (
@@ -44,4 +46,10 @@ class AssetAdmin(admin.ModelAdmin):
         "name",
         "code",
         "serial_number",
+        "manufacturer",
+        "model",
+    )
+
+    ordering = (
+        "name",
     )

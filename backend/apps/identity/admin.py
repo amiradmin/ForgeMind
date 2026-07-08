@@ -20,9 +20,7 @@ class CustomUserAdmin(UserAdmin):
         "username",
     )
 
-    ordering = (
-        "email",
-    )
+    ordering = ("email",)
 
     fieldsets = UserAdmin.fieldsets + (
         (

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Organization
+from .models import Organization, Plant
 
 
 @admin.register(Organization)
@@ -17,10 +17,26 @@ class OrganizationAdmin(admin.ModelAdmin):
         "code",
     )
 
-    list_filter = (
+
+@admin.register(Plant)
+class PlantAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "organization",
+        "code",
+        "city",
+        "country",
         "is_active",
     )
 
-    ordering = (
+    list_filter = (
+        "organization",
+        "country",
+        "is_active",
+    )
+
+    search_fields = (
         "name",
+        "code",
+        "city",
     )

@@ -6,9 +6,17 @@ target-version = ["py312"]
 line-length = 100
 target-version = "py312"
 
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "**/migrations",
+]
+
 [tool.ruff.lint]
 select = [
-    "E",   # pycodestyle errors
+    "E",   # pycodestyle
     "F",   # Pyflakes
     "I",   # isort
     "UP",  # pyupgrade
@@ -16,8 +24,8 @@ select = [
 ]
 
 ignore = [
-    "F403", # from module import *
-    "F405", # import * may define names
+    "F403",
+    "F405",
 ]
 
 [tool.isort]

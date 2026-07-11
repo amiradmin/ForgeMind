@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import Organization, Plant, Area, Asset
-
+from .models import Area, Asset, Organization, Plant
 
 
 @admin.register(Organization)

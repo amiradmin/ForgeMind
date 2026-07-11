@@ -25,4 +25,8 @@ urlpatterns = [
         "api/v1/auth/",
         include("apps.identity.urls"),
     ),
+    path(
+        "api/v1/",
+        include("apps.assets.api.urls"),
+    ),
 ]

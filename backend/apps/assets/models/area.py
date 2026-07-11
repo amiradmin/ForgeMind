@@ -1,6 +1,7 @@
 from django.db import models
 
 from shared.models.base import BaseModel
+
 from .plant import Plant
 
 

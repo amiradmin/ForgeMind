@@ -38,4 +38,5 @@ django-environ
 psycopg[binary]
 
 gunicorn
+django-filter
 

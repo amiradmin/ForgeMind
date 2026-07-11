@@ -1,14 +1,38 @@
-from rest_framework import viewsets
-
 from apps.assets.api.serializers import PlantSerializer
 from apps.assets.models import Plant
+from shared.views import BaseAPIViewSet
 
 
-class PlantViewSet(viewsets.ModelViewSet):
+class PlantViewSet(BaseAPIViewSet):
     """
     CRUD API for plants.
     """
 
-    queryset = Plant.objects.select_related("organization")
-
     serializer_class = PlantSerializer
+
+    filterset_fields = (
+        "organization",
+        "is_active",
+    )
+
+    search_fields = (
+        "name",
+        "code",
+        "organization__name",
+    )
+
+    ordering_fields = (
+        "name",
+        "code",
+        "created_at",
+    )
+
+    ordering = (
+        "name",
+    )
+
+    def get_queryset(self):
+        return (
+            Plant.objects.select_related("organization")
+            .filter(is_active=True)
+        )

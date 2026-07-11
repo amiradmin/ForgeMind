@@ -1,16 +1,29 @@
-from rest_framework import viewsets
-
 from apps.assets.api.serializers import OrganizationSerializer
 from apps.assets.models import Organization
+from shared.views import BaseAPIViewSet
 
 
-class OrganizationViewSet(viewsets.ModelViewSet):
+class OrganizationViewSet(BaseAPIViewSet):
     """CRUD API for organizations."""
 
     serializer_class = OrganizationSerializer
 
+    filterset_fields = (
+        "is_active",
+    )
+
+    search_fields = (
+        "name",
+    )
+
+    ordering_fields = (
+        "name",
+        "created_at",
+    )
+
+    ordering = (
+        "name",
+    )
+
     def get_queryset(self):
-        return (
-            Organization.objects.filter(is_active=True)
-            .order_by("name")
-        )
+        return Organization.objects.filter(is_active=True)

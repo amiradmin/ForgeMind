@@ -2,7 +2,6 @@ from decouple import config
 
 from .base import *
 
-
 DEBUG = config(
     "DEBUG",
     default=True,
@@ -10,6 +9,4 @@ DEBUG = config(
 )
 
 
-EMAIL_BACKEND = (
-    "django.core.mail.backends.console.EmailBackend"
-)
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

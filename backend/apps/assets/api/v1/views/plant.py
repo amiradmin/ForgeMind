@@ -1,4 +1,4 @@
-from apps.assets.api.serializers import PlantSerializer
+from apps.assets.api.v1.serializers import PlantSerializer
 from apps.assets.models import Plant
 from shared.views import BaseAPIViewSet
 

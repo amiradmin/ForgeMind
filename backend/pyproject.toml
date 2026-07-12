@@ -2,6 +2,17 @@
 line-length = 100
 target-version = ["py312"]
 
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | venv
+  | __pycache__
+  | migrations
+)/
+'''
+
+
 [tool.ruff]
 line-length = 100
 target-version = "py312"
@@ -13,6 +24,7 @@ exclude = [
     "__pycache__",
     "**/migrations",
 ]
+
 
 [tool.ruff.lint]
 select = [
@@ -28,9 +40,16 @@ ignore = [
     "F405",
 ]
 
-[tool.isort]
-profile = "black"
-line_length = 100
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "apps",
+    "config",
+    "shared",
+]
+
+force-single-line = false
+
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.development"
@@ -49,4 +68,18 @@ addopts = [
 
 testpaths = [
     "apps",
+]
+
+
+[tool.coverage.run]
+source = [
+    "apps",
+    "shared",
+]
+
+
+[tool.coverage.report]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
 ]

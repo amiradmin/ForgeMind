@@ -76,6 +76,7 @@ jobs:
           black --version
 
       - name: Check code formatting
+        working-directory: backend
         run: |
           black --check .
 
@@ -84,5 +85,6 @@ jobs:
           ruff check .
 
       - name: Run tests
+        working-directory: backend
         run: |
           pytest --cov=apps --cov-report=term-missing

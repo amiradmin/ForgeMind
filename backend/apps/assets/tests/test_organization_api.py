@@ -9,9 +9,7 @@ def test_authentication_required():
 
     client = APIClient()
 
-    response = client.get(
-        "/api/v1/organizations/"
-    )
+    response = client.get("/api/v1/organizations/")
 
     assert response.status_code == 401
 
@@ -24,9 +22,7 @@ def test_list_organizations(authenticated_client):
         code="TEST001",
     )
 
-    response = authenticated_client.get(
-        "/api/v1/organizations/"
-    )
+    response = authenticated_client.get("/api/v1/organizations/")
 
     assert response.status_code == 200
     assert response.data["count"] == 1

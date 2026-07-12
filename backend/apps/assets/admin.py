@@ -23,7 +23,6 @@ class AreaAdmin(admin.ModelAdmin):
     search_fields = ("name", "code")
 
 
-
 @admin.register(Asset)
 class AssetAdmin(admin.ModelAdmin):
     list_display = (
@@ -49,6 +48,4 @@ class AssetAdmin(admin.ModelAdmin):
         "model",
     )
 
-    ordering = (
-        "name",
-    )
+    ordering = ("name",)

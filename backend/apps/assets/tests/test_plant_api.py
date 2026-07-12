@@ -26,9 +26,7 @@ def authenticated_client(db):
 def test_authentication_required():
     client = APIClient()
 
-    response = client.get(
-        "/api/v1/plants/"
-    )
+    response = client.get("/api/v1/plants/")
 
     assert response.status_code == 401
 
@@ -42,9 +40,7 @@ def test_list_plants(authenticated_client):
         name="Factory Plant",
     )
 
-    response = authenticated_client.get(
-        "/api/v1/plants/"
-    )
+    response = authenticated_client.get("/api/v1/plants/")
 
     assert response.status_code == 200
     assert response.data["count"] == 1
@@ -68,9 +64,7 @@ def test_create_plant(authenticated_client):
     )
 
     assert response.status_code == 201
-    assert Plant.objects.filter(
-        code="PLANT001"
-    ).exists()
+    assert Plant.objects.filter(code="PLANT001").exists()
 
 
 @pytest.mark.django_db
@@ -82,9 +76,7 @@ def test_filter_plants(authenticated_client):
         name="Tehran Plant",
     )
 
-    response = authenticated_client.get(
-        "/api/v1/plants/?search=Tehran"
-    )
+    response = authenticated_client.get("/api/v1/plants/?search=Tehran")
 
     assert response.status_code == 200
     assert response.data["count"] == 1

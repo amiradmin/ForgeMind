@@ -19,7 +19,10 @@ class Migration(migrations.Migration):
                 (
                     "id",
                     models.UUIDField(
-                        default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
                     ),
                 ),
                 ("is_active", models.BooleanField(default=True)),
@@ -54,7 +57,8 @@ class Migration(migrations.Migration):
                 "ordering": ["name"],
                 "constraints": [
                     models.UniqueConstraint(
-                        fields=("organization", "code"), name="unique_organization_plant_code"
+                        fields=("organization", "code"),
+                        name="unique_organization_plant_code",
                     )
                 ],
             },

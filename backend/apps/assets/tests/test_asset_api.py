@@ -15,9 +15,7 @@ def test_authentication_required():
 
     client = APIClient()
 
-    response = client.get(
-        "/api/v1/assets/"
-    )
+    response = client.get("/api/v1/assets/")
 
     assert response.status_code == 401
 
@@ -27,22 +25,16 @@ def test_list_assets(authenticated_client):
 
     organization = OrganizationFactory()
 
-    plant = PlantFactory(
-        organization=organization
-    )
+    plant = PlantFactory(organization=organization)
 
-    area = AreaFactory(
-        plant=plant
-    )
+    area = AreaFactory(plant=plant)
 
     AssetFactory(
         area=area,
         name="Pump A",
     )
 
-    response = authenticated_client.get(
-        "/api/v1/assets/"
-    )
+    response = authenticated_client.get("/api/v1/assets/")
 
     assert response.status_code == 200
     assert response.data["count"] == 1
@@ -53,13 +45,9 @@ def test_create_asset(authenticated_client):
 
     organization = OrganizationFactory()
 
-    plant = PlantFactory(
-        organization=organization
-    )
+    plant = PlantFactory(organization=organization)
 
-    area = AreaFactory(
-        plant=plant
-    )
+    area = AreaFactory(plant=plant)
 
     payload = {
         "area": str(area.id),
@@ -78,7 +66,4 @@ def test_create_asset(authenticated_client):
 
     assert response.status_code == 201
 
-
-    assert Asset.objects.filter(
-        code="PUMP001"
-    ).exists()
+    assert Asset.objects.filter(code="PUMP001").exists()

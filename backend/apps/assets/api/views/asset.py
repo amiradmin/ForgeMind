@@ -34,16 +34,11 @@ class AssetViewSet(BaseAPIViewSet):
         "created_at",
     )
 
-    ordering = (
-        "name",
-    )
+    ordering = ("name",)
 
     def get_queryset(self):
-        return (
-            Asset.objects.select_related(
-                "area",
-                "area__plant",
-                "area__plant__organization",
-            )
-            .filter(is_active=True)
-        )
+        return Asset.objects.select_related(
+            "area",
+            "area__plant",
+            "area__plant__organization",
+        ).filter(is_active=True)

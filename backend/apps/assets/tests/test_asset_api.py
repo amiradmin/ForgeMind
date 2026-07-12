@@ -3,10 +3,10 @@ from rest_framework.test import APIClient
 
 from apps.assets.models import Asset
 from apps.assets.tests.factories import (
-    AssetFactory,
     AreaFactory,
-    PlantFactory,
+    AssetFactory,
     OrganizationFactory,
+    PlantFactory,
 )
 
 

@@ -17,19 +17,7 @@ def authenticated_client(db):
     )
 
     client = APIClient()
-
-    response = client.post(
-        "/api/v1/auth/login/",
-        {
-            "username": "testuser",
-            "password": "password123",
-        },
-        format="json",
-    )
-
-    client.credentials(
-        HTTP_AUTHORIZATION=f"Bearer {response.data['access']}"
-    )
+    client.force_authenticate(user=user)
 
     return client
 

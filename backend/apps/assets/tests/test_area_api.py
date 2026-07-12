@@ -4,8 +4,8 @@ from rest_framework.test import APIClient
 from apps.assets.models import Area
 from apps.assets.tests.factories import (
     AreaFactory,
-    PlantFactory,
     OrganizationFactory,
+    PlantFactory,
 )
 
 

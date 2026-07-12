@@ -110,6 +110,16 @@ DATABASES = {
         "PORT": config("POSTGRES_PORT"),
     }
 }
+
+# ------------------------------------------------------------------------------
+# Redis
+# ------------------------------------------------------------------------------
+
+REDIS_URL = config(
+    "REDIS_URL",
+    default="redis://localhost:6379/0",
+)
+
 # ------------------------------------------------------------------------------
 # Password Validation
 # ------------------------------------------------------------------------------
@@ -178,8 +188,20 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        days=config(
+            "JWT_ACCESS_TOKEN_DAYS",
+            default=1,
+            cast=int,
+        )
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        days=config(
+            "JWT_REFRESH_TOKEN_DAYS",
+            default=7,
+            cast=int,
+        )
+    ),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,

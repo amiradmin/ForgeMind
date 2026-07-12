@@ -24,8 +24,6 @@ def authenticated_client(user):
 
     refresh = RefreshToken.for_user(user)
 
-    client.credentials(
-        HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}"
-    )
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
 
     return client

@@ -28,15 +28,10 @@ class AreaViewSet(BaseAPIViewSet):
         "created_at",
     )
 
-    ordering = (
-        "name",
-    )
+    ordering = ("name",)
 
     def get_queryset(self):
-        return (
-            Area.objects.select_related(
-                "plant",
-                "plant__organization",
-            )
-            .filter(is_active=True)
-        )
+        return Area.objects.select_related(
+            "plant",
+            "plant__organization",
+        ).filter(is_active=True)

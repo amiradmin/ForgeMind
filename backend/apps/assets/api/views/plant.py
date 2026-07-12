@@ -27,12 +27,7 @@ class PlantViewSet(BaseAPIViewSet):
         "created_at",
     )
 
-    ordering = (
-        "name",
-    )
+    ordering = ("name",)
 
     def get_queryset(self):
-        return (
-            Plant.objects.select_related("organization")
-            .filter(is_active=True)
-        )
+        return Plant.objects.select_related("organization").filter(is_active=True)

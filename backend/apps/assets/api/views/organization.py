@@ -8,22 +8,16 @@ class OrganizationViewSet(BaseAPIViewSet):
 
     serializer_class = OrganizationSerializer
 
-    filterset_fields = (
-        "is_active",
-    )
+    filterset_fields = ("is_active",)
 
-    search_fields = (
-        "name",
-    )
+    search_fields = ("name",)
 
     ordering_fields = (
         "name",
         "created_at",
     )
 
-    ordering = (
-        "name",
-    )
+    ordering = ("name",)
 
     def get_queryset(self):
         return Organization.objects.filter(is_active=True)

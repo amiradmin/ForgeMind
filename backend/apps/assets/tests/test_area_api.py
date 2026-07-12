@@ -14,9 +14,7 @@ def test_authentication_required():
 
     client = APIClient()
 
-    response = client.get(
-        "/api/v1/areas/"
-    )
+    response = client.get("/api/v1/areas/")
 
     assert response.status_code == 401
 
@@ -26,18 +24,14 @@ def test_list_areas(authenticated_client):
 
     organization = OrganizationFactory()
 
-    plant = PlantFactory(
-        organization=organization
-    )
+    plant = PlantFactory(organization=organization)
 
     AreaFactory(
         plant=plant,
         name="Production Area",
     )
 
-    response = authenticated_client.get(
-        "/api/v1/areas/"
-    )
+    response = authenticated_client.get("/api/v1/areas/")
 
     assert response.status_code == 200
     assert response.data["count"] == 1
@@ -48,9 +42,7 @@ def test_create_area(authenticated_client):
 
     organization = OrganizationFactory()
 
-    plant = PlantFactory(
-        organization=organization
-    )
+    plant = PlantFactory(organization=organization)
 
     payload = {
         "plant": str(plant.id),
@@ -66,6 +58,4 @@ def test_create_area(authenticated_client):
 
     assert response.status_code == 201
 
-    assert Area.objects.filter(
-        code="AREA001"
-    ).exists()
+    assert Area.objects.filter(code="AREA001").exists()

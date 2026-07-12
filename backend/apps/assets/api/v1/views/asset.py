@@ -1,4 +1,4 @@
-from apps.assets.api.serializers import AssetSerializer
+from apps.assets.api.v1.serializers import AssetSerializer
 from apps.assets.models import Asset
 from shared.views import BaseAPIViewSet
 

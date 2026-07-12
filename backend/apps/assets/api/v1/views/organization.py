@@ -1,4 +1,4 @@
-from apps.assets.api.serializers import OrganizationSerializer
+from apps.assets.api.v1.serializers import OrganizationSerializer
 from apps.assets.models import Organization
 from shared.views import BaseAPIViewSet
 

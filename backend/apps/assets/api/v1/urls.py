@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from apps.assets.api.views import (
+from apps.assets.api.v1.views import (
     AreaViewSet,
     AssetViewSet,
     OrganizationViewSet,

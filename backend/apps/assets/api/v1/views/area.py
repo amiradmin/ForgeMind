@@ -1,4 +1,4 @@
-from apps.assets.api.serializers import AreaSerializer
+from apps.assets.api.v1.serializers import AreaSerializer
 from apps.assets.models import Area
 from shared.views import BaseAPIViewSet
 

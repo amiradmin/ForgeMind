@@ -32,7 +32,7 @@ urlpatterns = [
     ),
     path(
         "api/v1/",
-        include("apps.assets.api.urls"),
+        include("apps.assets.api.v1.urls"),
     ),
     path(
         "api/schema/",

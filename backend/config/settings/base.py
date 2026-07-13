@@ -58,6 +58,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "shared.middleware.request_logging.RequestLoggingMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -228,5 +229,53 @@ SPECTACULAR_SETTINGS = {
                 "bearerFormat": "JWT",
             }
         }
+    },
+}
+
+# ------------------------------------------------------------------------------
+# Logging
+# ------------------------------------------------------------------------------
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {
+            "format": ("[{asctime}] " "{levelname:<8} " "{name} " "{message}"),
+            "style": "{",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "apps": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "shared": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
     },
 }

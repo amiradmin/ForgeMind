@@ -230,3 +230,6 @@ SPECTACULAR_SETTINGS = {
         }
     },
 }
+
+APP_NAME = "ForgeMind"
+APP_VERSION = "1.0.0"

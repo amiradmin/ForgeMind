@@ -1,5 +1,6 @@
 from apps.assets.api.v1.serializers import PlantSerializer
 from apps.assets.models import Plant
+from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
 
 
@@ -9,6 +10,18 @@ class PlantViewSet(BaseAPIViewSet):
     """
 
     serializer_class = PlantSerializer
+    permission_classes = [
+        HasRBACPermission,
+    ]
+
+    action_permissions = {
+        "list": "plant.view",
+        "retrieve": "plant.view",
+        "create": "plant.create",
+        "update": "plant.update",
+        "partial_update": "plant.update",
+        "destroy": "plant.delete",
+    }
 
     filterset_fields = (
         "organization",

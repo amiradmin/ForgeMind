@@ -1,9 +1,4 @@
-from apps.assets.tests.factories import (
-    AreaFactory,
-    AssetFactory,
-    OrganizationFactory,
-    PlantFactory,
-)
+from apps.assets.tests.factories import AreaFactory, AssetFactory, OrganizationFactory, PlantFactory
 
 
 def test_factories_create_objects(db):

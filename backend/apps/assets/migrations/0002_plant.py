@@ -35,11 +35,15 @@ class Migration(migrations.Migration):
                 ("country", models.CharField(blank=True, max_length=100)),
                 (
                     "latitude",
-                    models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True),
+                    models.DecimalField(
+                        blank=True, decimal_places=6, max_digits=9, null=True
+                    ),
                 ),
                 (
                     "longitude",
-                    models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True),
+                    models.DecimalField(
+                        blank=True, decimal_places=6, max_digits=9, null=True
+                    ),
                 ),
                 (
                     "organization",

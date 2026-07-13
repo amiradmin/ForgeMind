@@ -232,50 +232,5 @@ SPECTACULAR_SETTINGS = {
     },
 }
 
-# ------------------------------------------------------------------------------
-# Logging
-# ------------------------------------------------------------------------------
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "standard": {
-            "format": ("[{asctime}] " "{levelname:<8} " "{name} " "{message}"),
-            "style": "{",
-            "datefmt": "%Y-%m-%d %H:%M:%S",
-        },
-    },
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "standard",
-        },
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": "INFO",
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "django.request": {
-            "handlers": ["console"],
-            "level": "WARNING",
-            "propagate": False,
-        },
-        "apps": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "shared": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-    },
-}
+APP_NAME = "ForgeMind"
+APP_VERSION = "1.0.0"

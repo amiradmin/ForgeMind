@@ -63,7 +63,9 @@ class Migration(migrations.Migration):
                 "db_table": "assets",
                 "ordering": ["name"],
                 "constraints": [
-                    models.UniqueConstraint(fields=("area", "code"), name="unique_area_asset_code")
+                    models.UniqueConstraint(
+                        fields=("area", "code"), name="unique_area_asset_code"
+                    )
                 ],
             },
         ),

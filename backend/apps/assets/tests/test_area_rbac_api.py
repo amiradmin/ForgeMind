@@ -6,7 +6,7 @@ from apps.identity.models import Permission, Role, RolePermission, User, UserRol
 
 
 @pytest.mark.django_db
-class TestPlantRBACAPI:
+class TestAreaRBACAPI:
 
     @pytest.fixture
     def client(self):
@@ -27,30 +27,30 @@ class TestPlantRBACAPI:
         )
 
     @pytest.fixture
-    def plant_permission(self):
+    def area_permission(self):
         return Permission.objects.create(
-            code="plant.view",
-            name="View Plant",
-            description="Can view plants",
+            code="area.view",
+            name="View Area",
+            description="Can view areas",
         )
 
     @pytest.fixture
-    def plant_role(
+    def area_role(
         self,
-        plant_permission,
+        area_permission,
     ):
         role = Role.objects.create(
-            name="Plant Viewer",
+            name="Area Viewer",
         )
 
         RolePermission.objects.create(
             role=role,
-            permission=plant_permission,
+            permission=area_permission,
         )
 
         return role
 
-    def test_user_without_permission_cannot_access_plants(
+    def test_user_without_permission_cannot_access_areas(
         self,
         client,
         user,
@@ -58,31 +58,31 @@ class TestPlantRBACAPI:
         client.force_authenticate(user=user)
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/areas/",
         )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_user_with_permission_can_access_plants(
+    def test_user_with_permission_can_access_areas(
         self,
         client,
         user,
-        plant_role,
+        area_role,
     ):
         UserRole.objects.create(
             user=user,
-            role=plant_role,
+            role=area_role,
         )
 
         client.force_authenticate(user=user)
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/areas/",
         )
 
         assert response.status_code == status.HTTP_200_OK
 
-    def test_superuser_can_access_plants(
+    def test_superuser_can_access_areas(
         self,
         client,
         superuser,
@@ -90,7 +90,7 @@ class TestPlantRBACAPI:
         client.force_authenticate(user=superuser)
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/areas/",
         )
 
         assert response.status_code == status.HTTP_200_OK

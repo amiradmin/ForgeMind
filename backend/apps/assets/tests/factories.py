@@ -1,11 +1,6 @@
 import factory
 
-from apps.assets.models import (
-    Area,
-    Asset,
-    Organization,
-    Plant,
-)
+from apps.assets.models import Area, Asset, Organization, Plant
 
 
 class OrganizationFactory(factory.django.DjangoModelFactory):

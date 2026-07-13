@@ -1,5 +1,6 @@
 from apps.assets.api.v1.serializers import AssetSerializer
 from apps.assets.models import Asset
+from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
 
 
@@ -9,6 +10,18 @@ class AssetViewSet(BaseAPIViewSet):
     """
 
     serializer_class = AssetSerializer
+    permission_classes = [
+        HasRBACPermission,
+    ]
+
+    action_permissions = {
+        "list": "asset.view",
+        "retrieve": "asset.view",
+        "create": "asset.create",
+        "update": "asset.update",
+        "partial_update": "asset.update",
+        "destroy": "asset.delete",
+    }
 
     filterset_fields = (
         "area",

@@ -2,11 +2,7 @@ import pytest
 from rest_framework.test import APIClient
 
 from apps.assets.models import Area
-from apps.assets.tests.factories import (
-    AreaFactory,
-    OrganizationFactory,
-    PlantFactory,
-)
+from apps.assets.tests.factories import AreaFactory, OrganizationFactory, PlantFactory
 
 
 @pytest.mark.django_db

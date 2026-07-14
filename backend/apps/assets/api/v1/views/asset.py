@@ -1,9 +1,9 @@
+from drf_spectacular.utils import extend_schema
+
 from apps.assets.api.v1.serializers import AssetSerializer
 from apps.assets.models import Asset
 from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
-from drf_spectacular.utils import extend_schema
-
 
 
 @extend_schema(

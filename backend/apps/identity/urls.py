@@ -5,7 +5,6 @@ from apps.identity.api.v1.views import (
     RefreshTokenView,
 )
 
-
 urlpatterns = [
     path(
         "login/",

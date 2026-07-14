@@ -1,9 +1,9 @@
+from drf_spectacular.utils import extend_schema
+
 from apps.assets.api.v1.serializers import AreaSerializer
 from apps.assets.models import Area
 from shared.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
-from drf_spectacular.utils import extend_schema
-
 
 
 @extend_schema(

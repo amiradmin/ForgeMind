@@ -2,8 +2,18 @@ from apps.assets.api.v1.serializers import PlantSerializer
 from apps.assets.models import Plant
 from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
+from drf_spectacular.utils import extend_schema
 
 
+@extend_schema(
+    tags=["Plants"],
+    description="""
+    Manage industrial plants.
+
+    Plants belong to organizations and contain
+    multiple operational areas.
+    """,
+)
 class PlantViewSet(BaseAPIViewSet):
     """
     CRUD API for plants.

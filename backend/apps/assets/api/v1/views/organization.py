@@ -2,7 +2,28 @@ from apps.assets.api.v1.serializers import OrganizationSerializer
 from apps.assets.models import Organization
 from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
+from drf_spectacular.utils import extend_schema
 
+
+@extend_schema(
+    tags=["Organizations"],
+    description="""
+    Manage industrial organizations.
+
+    Organizations represent the highest level
+    in the ForgeMind asset hierarchy.
+
+    Hierarchy:
+
+    Organization
+        |
+        Plant
+        |
+        Area
+        |
+        Asset
+    """,
+)
 
 class OrganizationViewSet(BaseAPIViewSet):
     """CRUD API for organizations."""

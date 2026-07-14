@@ -1,15 +1,20 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from apps.identity.api.v1.views import (
+    LoginView,
+    RefreshTokenView,
+)
+
 
 urlpatterns = [
     path(
         "login/",
-        TokenObtainPairView.as_view(),
-        name="token_obtain_pair",
+        LoginView.as_view(),
+        name="login",
     ),
     path(
         "refresh/",
-        TokenRefreshView.as_view(),
-        name="token_refresh",
+        RefreshTokenView.as_view(),
+        name="refresh",
     ),
 ]

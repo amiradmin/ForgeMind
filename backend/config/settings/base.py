@@ -215,12 +215,47 @@ SIMPLE_JWT = {
 }
 
 
+APP_NAME = "ForgeMind"
+APP_VERSION = "1.0.0"
+
+
 SPECTACULAR_SETTINGS = {
-    "TITLE": "ForgeMind API",
-    "DESCRIPTION": ("Industrial AI Platform API documentation"),
-    "VERSION": "1.0.0",
+    "TITLE": f"{APP_NAME} API",
+    "DESCRIPTION": """
+ForgeMind Industrial AI Platform API.
+
+This API provides backend services for:
+
+- Identity and authentication management
+- Organization hierarchy management
+- Industrial asset management
+- Asset monitoring foundation
+- AI-powered industrial intelligence
+
+Authentication:
+JWT Bearer Token authentication is required
+for protected endpoints.
+""",
+    "VERSION": APP_VERSION,
+    # Generate request/response schemas separately
     "COMPONENT_SPLIT_REQUEST": True,
-    "SECURITY": [{"BearerAuth": []}],
+    # Hide schema endpoint from Swagger UI
+    "SERVE_INCLUDE_SCHEMA": False,
+    # API version grouping
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+    # Swagger UI options
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "displayOperationId": True,
+        "filter": True,
+        "persistAuthorization": True,
+    },
+    # JWT authentication
+    "SECURITY": [
+        {
+            "BearerAuth": [],
+        }
+    ],
     "COMPONENTS": {
         "securitySchemes": {
             "BearerAuth": {
@@ -230,7 +265,37 @@ SPECTACULAR_SETTINGS = {
             }
         }
     },
+    "CONTACT": {
+        "name": "ForgeMind Engineering Team",
+    },
+    "LICENSE": {
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+    "TAGS": [
+        {
+            "name": "Authentication",
+            "description": ("JWT authentication, token management " "and user access control."),
+        },
+        {
+            "name": "Organizations",
+            "description": "Manage industrial organizations.",
+        },
+        {
+            "name": "Plants",
+            "description": "Manage industrial plants.",
+        },
+        {
+            "name": "Areas",
+            "description": "Manage production areas.",
+        },
+        {
+            "name": "Assets",
+            "description": ("Manage industrial assets and equipment."),
+        },
+        {
+            "name": "System",
+            "description": ("System monitoring and health endpoints."),
+        },
+    ],
 }
-
-APP_NAME = "ForgeMind"
-APP_VERSION = "1.0.0"

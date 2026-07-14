@@ -214,23 +214,67 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": True,
 }
 
+APP_NAME = "ForgeMind"
+APP_VERSION = "1.0.0"
 
+
+# ------------------------------------------------------------------------------
+# drf-spectacular OpenAPI Documentation
+# ------------------------------------------------------------------------------
 SPECTACULAR_SETTINGS = {
     "TITLE": "ForgeMind API",
-    "DESCRIPTION": ("Industrial AI Platform API documentation"),
-    "VERSION": "1.0.0",
+    "DESCRIPTION": """
+ForgeMind Industrial AI Platform API.
+
+Provides:
+
+- Identity management
+- Organization management
+- Industrial assets
+- AI services
+""",
+    "VERSION": APP_VERSION,
     "COMPONENT_SPLIT_REQUEST": True,
-    "SECURITY": [{"BearerAuth": []}],
-    "COMPONENTS": {
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "displayOperationId": True,
+        "filter": True,
+        "persistAuthorization": True,
+    },
+    "APPEND_COMPONENTS": {
         "securitySchemes": {
-            "BearerAuth": {
+            "jwtAuth": {
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
             }
         }
     },
+    "TAGS": [
+        {
+            "name": "Authentication",
+            "description": "JWT authentication endpoints.",
+        },
+        {
+            "name": "Organizations",
+            "description": "Manage industrial organizations.",
+        },
+        {
+            "name": "Plants",
+            "description": "Manage industrial plants.",
+        },
+        {
+            "name": "Areas",
+            "description": "Manage production areas.",
+        },
+        {
+            "name": "Assets",
+            "description": "Manage industrial assets.",
+        },
+        {
+            "name": "System",
+            "description": "System monitoring endpoints.",
+        },
+    ],
 }
-
-APP_NAME = "ForgeMind"
-APP_VERSION = "1.0.0"

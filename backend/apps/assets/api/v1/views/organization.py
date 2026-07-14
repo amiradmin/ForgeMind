@@ -25,7 +25,6 @@ from shared.views import BaseAPIViewSet
         Asset
     """,
 )
-
 class OrganizationViewSet(BaseAPIViewSet):
     """CRUD API for organizations."""
 

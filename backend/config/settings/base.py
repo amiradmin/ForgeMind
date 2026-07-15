@@ -214,10 +214,12 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": True,
 }
 
-
 APP_NAME = "ForgeMind"
 APP_VERSION = "1.0.0"
 
+# ------------------------------------------------------------------------------
+# drf-spectacular OpenAPI Documentation
+# ------------------------------------------------------------------------------
 
 SPECTACULAR_SETTINGS = {
     "TITLE": f"{APP_NAME} API",
@@ -237,45 +239,33 @@ JWT Bearer Token authentication is required
 for protected endpoints.
 """,
     "VERSION": APP_VERSION,
-    # Generate request/response schemas separately
+    # Generate separate request and response schemas
     "COMPONENT_SPLIT_REQUEST": True,
-    # Hide schema endpoint from Swagger UI
-    "SERVE_INCLUDE_SCHEMA": False,
-    # API version grouping
+    # Only include versioned APIs
     "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
-    # Swagger UI options
+    # Swagger UI configuration
     "SWAGGER_UI_SETTINGS": {
         "deepLinking": True,
         "displayOperationId": True,
         "filter": True,
         "persistAuthorization": True,
     },
-    # JWT authentication
-    "SECURITY": [
-        {
-            "BearerAuth": [],
-        }
-    ],
-    "COMPONENTS": {
+    # JWT Authentication scheme
+    "APPEND_COMPONENTS": {
         "securitySchemes": {
-            "BearerAuth": {
+            "jwtAuth": {
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
+                "description": "JWT Authorization header using Bearer token.",
             }
         }
     },
-    "CONTACT": {
-        "name": "ForgeMind Engineering Team",
-    },
-    "LICENSE": {
-        "name": "Apache 2.0",
-        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
-    },
+    # API documentation groups
     "TAGS": [
         {
             "name": "Authentication",
-            "description": ("JWT authentication, token management " "and user access control."),
+            "description": ("JWT authentication, token management, " "and user access control."),
         },
         {
             "name": "Organizations",
@@ -291,11 +281,19 @@ for protected endpoints.
         },
         {
             "name": "Assets",
-            "description": ("Manage industrial assets and equipment."),
+            "description": "Manage industrial assets and equipment.",
         },
         {
             "name": "System",
-            "description": ("System monitoring and health endpoints."),
+            "description": "System monitoring and health endpoints.",
         },
     ],
+    # API metadata
+    "CONTACT": {
+        "name": "ForgeMind Engineering Team",
+    },
+    "LICENSE": {
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
 }

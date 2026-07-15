@@ -207,3 +207,9 @@ https://github.com/amiradmin
 ---
 
 ⭐ If you find this project interesting, consider giving it a Star.
+
+
+
+Copyright 2026 Amir Behvandi
+
+Licensed under the Apache License, Version 2.0

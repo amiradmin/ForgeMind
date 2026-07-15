@@ -1,11 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from apps.assets.api.v1.views import (
-    AreaViewSet,
-    AssetViewSet,
-    OrganizationViewSet,
-    PlantViewSet,
-)
+from apps.assets.api.v1.views import AreaViewSet, AssetViewSet, OrganizationViewSet, PlantViewSet
 
 app_name = "assets"
 

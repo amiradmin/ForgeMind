@@ -23,10 +23,156 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
   /api/v1/areas/:
     get:
       operationId: areas_list
-      description: CRUD API for areas.
+      description: "\n    Manage industrial production areas.\n\n    Areas represent
+        logical divisions inside\n    industrial plants.\n    "
       parameters:
       - in: query
         name: is_active
@@ -56,10 +202,9 @@ paths:
         schema:
           type: string
       tags:
-      - areas
+      - Areas
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -69,9 +214,10 @@ paths:
           description: ''
     post:
       operationId: areas_create
-      description: CRUD API for areas.
+      description: "\n    Manage industrial production areas.\n\n    Areas represent
+        logical divisions inside\n    industrial plants.\n    "
       tags:
-      - areas
+      - Areas
       requestBody:
         content:
           application/json:
@@ -86,7 +232,6 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '201':
           content:
@@ -97,7 +242,8 @@ paths:
   /api/v1/areas/{id}/:
     get:
       operationId: areas_retrieve
-      description: CRUD API for areas.
+      description: "\n    Manage industrial production areas.\n\n    Areas represent
+        logical divisions inside\n    industrial plants.\n    "
       parameters:
       - in: path
         name: id
@@ -107,10 +253,9 @@ paths:
         description: A UUID string identifying this area.
         required: true
       tags:
-      - areas
+      - Areas
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -120,7 +265,8 @@ paths:
           description: ''
     put:
       operationId: areas_update
-      description: CRUD API for areas.
+      description: "\n    Manage industrial production areas.\n\n    Areas represent
+        logical divisions inside\n    industrial plants.\n    "
       parameters:
       - in: path
         name: id
@@ -130,7 +276,7 @@ paths:
         description: A UUID string identifying this area.
         required: true
       tags:
-      - areas
+      - Areas
       requestBody:
         content:
           application/json:
@@ -145,7 +291,6 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -155,7 +300,8 @@ paths:
           description: ''
     patch:
       operationId: areas_partial_update
-      description: CRUD API for areas.
+      description: "\n    Manage industrial production areas.\n\n    Areas represent
+        logical divisions inside\n    industrial plants.\n    "
       parameters:
       - in: path
         name: id
@@ -165,7 +311,7 @@ paths:
         description: A UUID string identifying this area.
         required: true
       tags:
-      - areas
+      - Areas
       requestBody:
         content:
           application/json:
@@ -179,7 +325,6 @@ paths:
               $ref: '#/components/schemas/PatchedAreaRequest'
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -189,7 +334,8 @@ paths:
           description: ''
     delete:
       operationId: areas_destroy
-      description: CRUD API for areas.
+      description: "\n    Manage industrial production areas.\n\n    Areas represent
+        logical divisions inside\n    industrial plants.\n    "
       parameters:
       - in: path
         name: id
@@ -199,17 +345,18 @@ paths:
         description: A UUID string identifying this area.
         required: true
       tags:
-      - areas
+      - Areas
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '204':
           description: No response body
   /api/v1/assets/:
     get:
       operationId: assets_list
-      description: CRUD API for assets.
+      description: "\n    Manage industrial assets.\n\n    Assets represent physical
+        equipment such as:\n\n    - Machines\n    - Pumps\n    - Motors\n    - Sensors\n\n
+        \   Assets belong to areas inside plants.\n    "
       parameters:
       - in: query
         name: area
@@ -259,27 +406,61 @@ paths:
         schema:
           type: string
       tags:
-      - assets
+      - Assets
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedAssetList'
+              examples:
+                AssetResponseExample:
+                  value:
+                    count: 123
+                    next: http://api.example.org/accounts/?page=4
+                    previous: http://api.example.org/accounts/?page=2
+                    results:
+                    - id: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                      area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                      name: Main Cooling Pump
+                      code: PUMP-001
+                      asset_type: pump
+                      manufacturer: Siemens
+                      model: SIPOS 7
+                      serial_number: SN-2026-001
+                      installation_date: '2026-01-15'
+                      is_active: true
+                      created_at: '2026-07-14T10:30:00Z'
+                      updated_at: '2026-07-14T10:30:00Z'
+                  summary: Asset Response Example
           description: ''
     post:
       operationId: assets_create
-      description: CRUD API for assets.
+      description: "\n    Manage industrial assets.\n\n    Assets represent physical
+        equipment such as:\n\n    - Machines\n    - Pumps\n    - Motors\n    - Sensors\n\n
+        \   Assets belong to areas inside plants.\n    "
       tags:
-      - assets
+      - Assets
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AssetRequest'
+            examples:
+              IndustrialPumpAssetExample:
+                value:
+                  area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                  name: Main Cooling Pump
+                  code: PUMP-001
+                  asset_type: pump
+                  manufacturer: Siemens
+                  model: SIPOS 7
+                  serial_number: SN-2026-001
+                  installation_date: '2026-01-15'
+                  is_active: true
+                summary: Industrial Pump Asset Example
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/AssetRequest'
@@ -289,18 +470,35 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '201':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                AssetResponseExample:
+                  value:
+                    id: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    name: Main Cooling Pump
+                    code: PUMP-001
+                    asset_type: pump
+                    manufacturer: Siemens
+                    model: SIPOS 7
+                    serial_number: SN-2026-001
+                    installation_date: '2026-01-15'
+                    is_active: true
+                    created_at: '2026-07-14T10:30:00Z'
+                    updated_at: '2026-07-14T10:30:00Z'
+                  summary: Asset Response Example
           description: ''
   /api/v1/assets/{id}/:
     get:
       operationId: assets_retrieve
-      description: CRUD API for assets.
+      description: "\n    Manage industrial assets.\n\n    Assets represent physical
+        equipment such as:\n\n    - Machines\n    - Pumps\n    - Motors\n    - Sensors\n\n
+        \   Assets belong to areas inside plants.\n    "
       parameters:
       - in: path
         name: id
@@ -310,20 +508,37 @@ paths:
         description: A UUID string identifying this asset.
         required: true
       tags:
-      - assets
+      - Assets
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                AssetResponseExample:
+                  value:
+                    id: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    name: Main Cooling Pump
+                    code: PUMP-001
+                    asset_type: pump
+                    manufacturer: Siemens
+                    model: SIPOS 7
+                    serial_number: SN-2026-001
+                    installation_date: '2026-01-15'
+                    is_active: true
+                    created_at: '2026-07-14T10:30:00Z'
+                    updated_at: '2026-07-14T10:30:00Z'
+                  summary: Asset Response Example
           description: ''
     put:
       operationId: assets_update
-      description: CRUD API for assets.
+      description: "\n    Manage industrial assets.\n\n    Assets represent physical
+        equipment such as:\n\n    - Machines\n    - Pumps\n    - Motors\n    - Sensors\n\n
+        \   Assets belong to areas inside plants.\n    "
       parameters:
       - in: path
         name: id
@@ -333,12 +548,25 @@ paths:
         description: A UUID string identifying this asset.
         required: true
       tags:
-      - assets
+      - Assets
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AssetRequest'
+            examples:
+              IndustrialPumpAssetExample:
+                value:
+                  area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                  name: Main Cooling Pump
+                  code: PUMP-001
+                  asset_type: pump
+                  manufacturer: Siemens
+                  model: SIPOS 7
+                  serial_number: SN-2026-001
+                  installation_date: '2026-01-15'
+                  is_active: true
+                summary: Industrial Pump Asset Example
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/AssetRequest'
@@ -348,17 +576,34 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                AssetResponseExample:
+                  value:
+                    id: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    name: Main Cooling Pump
+                    code: PUMP-001
+                    asset_type: pump
+                    manufacturer: Siemens
+                    model: SIPOS 7
+                    serial_number: SN-2026-001
+                    installation_date: '2026-01-15'
+                    is_active: true
+                    created_at: '2026-07-14T10:30:00Z'
+                    updated_at: '2026-07-14T10:30:00Z'
+                  summary: Asset Response Example
           description: ''
     patch:
       operationId: assets_partial_update
-      description: CRUD API for assets.
+      description: "\n    Manage industrial assets.\n\n    Assets represent physical
+        equipment such as:\n\n    - Machines\n    - Pumps\n    - Motors\n    - Sensors\n\n
+        \   Assets belong to areas inside plants.\n    "
       parameters:
       - in: path
         name: id
@@ -368,12 +613,25 @@ paths:
         description: A UUID string identifying this asset.
         required: true
       tags:
-      - assets
+      - Assets
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchedAssetRequest'
+            examples:
+              IndustrialPumpAssetExample:
+                value:
+                  area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                  name: Main Cooling Pump
+                  code: PUMP-001
+                  asset_type: pump
+                  manufacturer: Siemens
+                  model: SIPOS 7
+                  serial_number: SN-2026-001
+                  installation_date: '2026-01-15'
+                  is_active: true
+                summary: Industrial Pump Asset Example
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/PatchedAssetRequest'
@@ -382,17 +640,34 @@ paths:
               $ref: '#/components/schemas/PatchedAssetRequest'
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                AssetResponseExample:
+                  value:
+                    id: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
+                    name: Main Cooling Pump
+                    code: PUMP-001
+                    asset_type: pump
+                    manufacturer: Siemens
+                    model: SIPOS 7
+                    serial_number: SN-2026-001
+                    installation_date: '2026-01-15'
+                    is_active: true
+                    created_at: '2026-07-14T10:30:00Z'
+                    updated_at: '2026-07-14T10:30:00Z'
+                  summary: Asset Response Example
           description: ''
     delete:
       operationId: assets_destroy
-      description: CRUD API for assets.
+      description: "\n    Manage industrial assets.\n\n    Assets represent physical
+        equipment such as:\n\n    - Machines\n    - Pumps\n    - Motors\n    - Sensors\n\n
+        \   Assets belong to areas inside plants.\n    "
       parameters:
       - in: path
         name: id
@@ -402,21 +677,19 @@ paths:
         description: A UUID string identifying this asset.
         required: true
       tags:
-      - assets
+      - Assets
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '204':
           description: No response body
   /api/v1/auth/login/:
     post:
       operationId: auth_login_create
-      description: |-
-        Takes a set of user credentials and returns an access and refresh JSON web
-        token pair to prove the authentication of those credentials.
+      description: Obtain JWT access and refresh tokens.
+      summary: Login
       tags:
-      - auth
+      - Authentication
       requestBody:
         content:
           application/json:
@@ -429,8 +702,6 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenObtainPairRequest'
         required: true
-      security:
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -441,11 +712,10 @@ paths:
   /api/v1/auth/refresh/:
     post:
       operationId: auth_refresh_create
-      description: |-
-        Takes a refresh type JSON web token and returns an access type JSON web
-        token if the refresh token is valid.
+      description: Refresh JWT access token using refresh token.
+      summary: Refresh token
       tags:
-      - auth
+      - Authentication
       requestBody:
         content:
           application/json:
@@ -458,8 +728,6 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenRefreshRequest'
         required: true
-      security:
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -503,7 +771,10 @@ paths:
   /api/v1/organizations/:
     get:
       operationId: organizations_list
-      description: CRUD API for organizations.
+      description: "\n    Manage industrial organizations.\n\n    Organizations represent
+        the highest level\n    in the ForgeMind asset hierarchy.\n\n    Hierarchy:\n\n
+        \   Organization\n        |\n        Plant\n        |\n        Area\n        |\n
+        \       Asset\n    "
       parameters:
       - in: query
         name: is_active
@@ -528,10 +799,9 @@ paths:
         schema:
           type: string
       tags:
-      - organizations
+      - Organizations
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -541,9 +811,12 @@ paths:
           description: ''
     post:
       operationId: organizations_create
-      description: CRUD API for organizations.
+      description: "\n    Manage industrial organizations.\n\n    Organizations represent
+        the highest level\n    in the ForgeMind asset hierarchy.\n\n    Hierarchy:\n\n
+        \   Organization\n        |\n        Plant\n        |\n        Area\n        |\n
+        \       Asset\n    "
       tags:
-      - organizations
+      - Organizations
       requestBody:
         content:
           application/json:
@@ -558,7 +831,6 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '201':
           content:
@@ -569,7 +841,10 @@ paths:
   /api/v1/organizations/{id}/:
     get:
       operationId: organizations_retrieve
-      description: CRUD API for organizations.
+      description: "\n    Manage industrial organizations.\n\n    Organizations represent
+        the highest level\n    in the ForgeMind asset hierarchy.\n\n    Hierarchy:\n\n
+        \   Organization\n        |\n        Plant\n        |\n        Area\n        |\n
+        \       Asset\n    "
       parameters:
       - in: path
         name: id
@@ -579,10 +854,9 @@ paths:
         description: A UUID string identifying this Organization.
         required: true
       tags:
-      - organizations
+      - Organizations
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -592,7 +866,10 @@ paths:
           description: ''
     put:
       operationId: organizations_update
-      description: CRUD API for organizations.
+      description: "\n    Manage industrial organizations.\n\n    Organizations represent
+        the highest level\n    in the ForgeMind asset hierarchy.\n\n    Hierarchy:\n\n
+        \   Organization\n        |\n        Plant\n        |\n        Area\n        |\n
+        \       Asset\n    "
       parameters:
       - in: path
         name: id
@@ -602,7 +879,7 @@ paths:
         description: A UUID string identifying this Organization.
         required: true
       tags:
-      - organizations
+      - Organizations
       requestBody:
         content:
           application/json:
@@ -617,7 +894,6 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -627,7 +903,10 @@ paths:
           description: ''
     patch:
       operationId: organizations_partial_update
-      description: CRUD API for organizations.
+      description: "\n    Manage industrial organizations.\n\n    Organizations represent
+        the highest level\n    in the ForgeMind asset hierarchy.\n\n    Hierarchy:\n\n
+        \   Organization\n        |\n        Plant\n        |\n        Area\n        |\n
+        \       Asset\n    "
       parameters:
       - in: path
         name: id
@@ -637,7 +916,7 @@ paths:
         description: A UUID string identifying this Organization.
         required: true
       tags:
-      - organizations
+      - Organizations
       requestBody:
         content:
           application/json:
@@ -651,7 +930,6 @@ paths:
               $ref: '#/components/schemas/PatchedOrganizationRequest'
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -661,7 +939,10 @@ paths:
           description: ''
     delete:
       operationId: organizations_destroy
-      description: CRUD API for organizations.
+      description: "\n    Manage industrial organizations.\n\n    Organizations represent
+        the highest level\n    in the ForgeMind asset hierarchy.\n\n    Hierarchy:\n\n
+        \   Organization\n        |\n        Plant\n        |\n        Area\n        |\n
+        \       Asset\n    "
       parameters:
       - in: path
         name: id
@@ -671,17 +952,17 @@ paths:
         description: A UUID string identifying this Organization.
         required: true
       tags:
-      - organizations
+      - Organizations
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '204':
           description: No response body
   /api/v1/plants/:
     get:
       operationId: plants_list
-      description: CRUD API for plants.
+      description: "\n    Manage industrial plants.\n\n    Plants belong to organizations
+        and contain\n    multiple operational areas.\n    "
       parameters:
       - in: query
         name: is_active
@@ -711,10 +992,9 @@ paths:
         schema:
           type: string
       tags:
-      - plants
+      - Plants
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -724,9 +1004,10 @@ paths:
           description: ''
     post:
       operationId: plants_create
-      description: CRUD API for plants.
+      description: "\n    Manage industrial plants.\n\n    Plants belong to organizations
+        and contain\n    multiple operational areas.\n    "
       tags:
-      - plants
+      - Plants
       requestBody:
         content:
           application/json:
@@ -741,7 +1022,6 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '201':
           content:
@@ -752,7 +1032,8 @@ paths:
   /api/v1/plants/{id}/:
     get:
       operationId: plants_retrieve
-      description: CRUD API for plants.
+      description: "\n    Manage industrial plants.\n\n    Plants belong to organizations
+        and contain\n    multiple operational areas.\n    "
       parameters:
       - in: path
         name: id
@@ -762,10 +1043,9 @@ paths:
         description: A UUID string identifying this Plant.
         required: true
       tags:
-      - plants
+      - Plants
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -775,7 +1055,8 @@ paths:
           description: ''
     put:
       operationId: plants_update
-      description: CRUD API for plants.
+      description: "\n    Manage industrial plants.\n\n    Plants belong to organizations
+        and contain\n    multiple operational areas.\n    "
       parameters:
       - in: path
         name: id
@@ -785,7 +1066,7 @@ paths:
         description: A UUID string identifying this Plant.
         required: true
       tags:
-      - plants
+      - Plants
       requestBody:
         content:
           application/json:
@@ -800,7 +1081,6 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -810,7 +1090,8 @@ paths:
           description: ''
     patch:
       operationId: plants_partial_update
-      description: CRUD API for plants.
+      description: "\n    Manage industrial plants.\n\n    Plants belong to organizations
+        and contain\n    multiple operational areas.\n    "
       parameters:
       - in: path
         name: id
@@ -820,7 +1101,7 @@ paths:
         description: A UUID string identifying this Plant.
         required: true
       tags:
-      - plants
+      - Plants
       requestBody:
         content:
           application/json:
@@ -834,7 +1115,6 @@ paths:
               $ref: '#/components/schemas/PatchedPlantRequest'
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '200':
           content:
@@ -844,7 +1124,8 @@ paths:
           description: ''
     delete:
       operationId: plants_destroy
-      description: CRUD API for plants.
+      description: "\n    Manage industrial plants.\n\n    Plants belong to organizations
+        and contain\n    multiple operational areas.\n    "
       parameters:
       - in: path
         name: id
@@ -854,10 +1135,9 @@ paths:
         description: A UUID string identifying this Plant.
         required: true
       tags:
-      - plants
+      - Plants
       security:
       - jwtAuth: []
-      - BearerAuth: []
       responses:
         '204':
           description: No response body
@@ -1318,7 +1598,7 @@ components:
     TokenObtainPairRequest:
       type: object
       properties:
-        username:
+        email:
           type: string
           writeOnly: true
           minLength: 1
@@ -1327,8 +1607,8 @@ components:
           writeOnly: true
           minLength: 1
       required:
+      - email
       - password
-      - username
     TokenRefresh:
       type: object
       properties:
@@ -1353,9 +1633,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT Authorization header using Bearer token.
 tags:
 - name: Authentication
-  description: JWT authentication, token management and user access control.
+  description: JWT authentication, token management, and user access control.
 - name: Organizations
   description: Manage industrial organizations.
 - name: Plants

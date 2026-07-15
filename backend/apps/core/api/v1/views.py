@@ -4,7 +4,10 @@ from datetime import UTC, datetime
 from django.conf import settings
 from django.db import connection
 from django.db.utils import OperationalError
-from drf_spectacular.utils import OpenApiResponse, extend_schema
+from drf_spectacular.utils import (
+    OpenApiResponse,
+    extend_schema,
+)
 from rest_framework import permissions, serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,11 +28,13 @@ class HealthCheckAPIView(APIView):
     System health check endpoint.
     """
 
-    permission_classes = [permissions.AllowAny]
-    serializer_class = HealthCheckSerializer
+    permission_classes = [
+        permissions.AllowAny,
+    ]
 
     @extend_schema(
         tags=["System"],
+        auth=[],
         summary="System health check",
         description="""
 Check the health status of ForgeMind services.
@@ -55,7 +60,6 @@ Used by:
                 description="System is unhealthy",
             ),
         },
-        auth=[],
     )
     def get(self, request):
         checks = {}
@@ -85,7 +89,11 @@ Used by:
             {
                 "status": overall_status,
                 "service": "ForgeMind",
-                "version": getattr(settings, "APP_VERSION", "1.0.0"),
+                "version": getattr(
+                    settings,
+                    "APP_VERSION",
+                    "1.0.0",
+                ),
                 "timestamp": datetime.now(UTC).isoformat(),
                 "checks": checks,
             },

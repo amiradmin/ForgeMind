@@ -6,7 +6,10 @@ from apps.identity.models import Permission, Role, RolePermission, User, UserRol
 
 
 @pytest.mark.django_db
-class TestPlantRBACAPI:
+class TestOrganizationRBACAPI:
+    """
+    Test RBAC authorization on Organization API.
+    """
 
     @pytest.fixture
     def client(self):
@@ -27,70 +30,76 @@ class TestPlantRBACAPI:
         )
 
     @pytest.fixture
-    def plant_permission(self):
+    def organization_permission(self):
         return Permission.objects.create(
-            code="plant.view",
-            name="View Plant",
-            description="Can view plants",
+            code="organization.view",
+            name="View Organization",
+            description="Can view organizations",
         )
 
     @pytest.fixture
-    def plant_role(
+    def organization_role(
         self,
-        plant_permission,
+        organization_permission,
     ):
         role = Role.objects.create(
-            name="Plant Viewer",
+            name="Organization Viewer",
         )
 
         RolePermission.objects.create(
             role=role,
-            permission=plant_permission,
+            permission=organization_permission,
         )
 
         return role
 
-    def test_user_without_permission_cannot_access_plants(
+    def test_user_without_permission_cannot_access_organizations(
         self,
         client,
         user,
     ):
-        client.force_authenticate(user=user)
+        client.force_authenticate(
+            user=user,
+        )
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/organizations/",
         )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_user_with_permission_can_access_plants(
+    def test_user_with_permission_can_access_organizations(
         self,
         client,
         user,
-        plant_role,
+        organization_role,
     ):
         UserRole.objects.create(
             user=user,
-            role=plant_role,
+            role=organization_role,
         )
 
-        client.force_authenticate(user=user)
+        client.force_authenticate(
+            user=user,
+        )
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/organizations/",
         )
 
         assert response.status_code == status.HTTP_200_OK
 
-    def test_superuser_can_access_plants(
+    def test_superuser_can_access_organizations(
         self,
         client,
         superuser,
     ):
-        client.force_authenticate(user=superuser)
+        client.force_authenticate(
+            user=superuser,
+        )
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/organizations/",
         )
 
         assert response.status_code == status.HTTP_200_OK

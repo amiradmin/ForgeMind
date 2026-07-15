@@ -1,14 +1,37 @@
+from drf_spectacular.utils import extend_schema
+
 from apps.assets.api.v1.serializers import AreaSerializer
 from apps.assets.models import Area
+from shared.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
 
 
+@extend_schema(
+    tags=["Areas"],
+    description="""
+    Manage industrial production areas.
+
+    Areas represent logical divisions inside
+    industrial plants.
+    """,
+)
 class AreaViewSet(BaseAPIViewSet):
     """
     CRUD API for areas.
     """
 
     serializer_class = AreaSerializer
+
+    permission_classes = [HasRBACPermission]
+
+    action_permissions = {
+        "list": "area.view",
+        "retrieve": "area.view",
+        "create": "area.create",
+        "update": "area.update",
+        "partial_update": "area.update",
+        "destroy": "area.delete",
+    }
 
     filterset_fields = (
         "plant",

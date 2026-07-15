@@ -6,7 +6,10 @@ from apps.identity.models import Permission, Role, RolePermission, User, UserRol
 
 
 @pytest.mark.django_db
-class TestPlantRBACAPI:
+class TestAssetRBACAPI:
+    """
+    Test RBAC authorization on Asset API.
+    """
 
     @pytest.fixture
     def client(self):
@@ -27,70 +30,97 @@ class TestPlantRBACAPI:
         )
 
     @pytest.fixture
-    def plant_permission(self):
+    def view_asset_permission(self):
+        """
+        Permission required to view assets.
+        """
+
         return Permission.objects.create(
-            code="plant.view",
-            name="View Plant",
-            description="Can view plants",
+            code="asset.view",
+            name="View Asset",
+            description="Can view assets",
         )
 
     @pytest.fixture
-    def plant_role(
+    def asset_role(
         self,
-        plant_permission,
+        view_asset_permission,
     ):
+        """
+        Role with asset.view permission.
+        """
+
         role = Role.objects.create(
-            name="Plant Viewer",
+            name="Asset Viewer",
+            description="Can view assets",
         )
 
         RolePermission.objects.create(
             role=role,
-            permission=plant_permission,
+            permission=view_asset_permission,
         )
 
         return role
 
-    def test_user_without_permission_cannot_access_plants(
+    def test_user_without_permission_cannot_access_assets(
         self,
         client,
         user,
     ):
-        client.force_authenticate(user=user)
+        """
+        User without RBAC permission should get 403.
+        """
+
+        client.force_authenticate(
+            user=user,
+        )
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/assets/",
         )
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_user_with_permission_can_access_plants(
+    def test_user_with_permission_can_access_assets(
         self,
         client,
         user,
-        plant_role,
+        asset_role,
     ):
+        """
+        User with asset.view permission should get 200.
+        """
+
         UserRole.objects.create(
             user=user,
-            role=plant_role,
+            role=asset_role,
         )
 
-        client.force_authenticate(user=user)
+        client.force_authenticate(
+            user=user,
+        )
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/assets/",
         )
 
         assert response.status_code == status.HTTP_200_OK
 
-    def test_superuser_can_access_plants(
+    def test_superuser_can_access_assets(
         self,
         client,
         superuser,
     ):
-        client.force_authenticate(user=superuser)
+        """
+        Superusers bypass RBAC.
+        """
+
+        client.force_authenticate(
+            user=superuser,
+        )
 
         response = client.get(
-            "/api/v1/plants/",
+            "/api/v1/assets/",
         )
 
         assert response.status_code == status.HTTP_200_OK

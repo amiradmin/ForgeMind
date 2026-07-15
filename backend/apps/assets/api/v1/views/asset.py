@@ -1,14 +1,44 @@
+from drf_spectacular.utils import extend_schema
+
 from apps.assets.api.v1.serializers import AssetSerializer
 from apps.assets.models import Asset
+from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
 
 
+@extend_schema(
+    tags=["Assets"],
+    description="""
+    Manage industrial assets.
+
+    Assets represent physical equipment such as:
+
+    - Machines
+    - Pumps
+    - Motors
+    - Sensors
+
+    Assets belong to areas inside plants.
+    """,
+)
 class AssetViewSet(BaseAPIViewSet):
     """
     CRUD API for assets.
     """
 
     serializer_class = AssetSerializer
+    permission_classes = [
+        HasRBACPermission,
+    ]
+
+    action_permissions = {
+        "list": "asset.view",
+        "retrieve": "asset.view",
+        "create": "asset.create",
+        "update": "asset.update",
+        "partial_update": "asset.update",
+        "destroy": "asset.delete",
+    }
 
     filterset_fields = (
         "area",

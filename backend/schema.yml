@@ -6,12 +6,22 @@ info:
 
     ForgeMind Industrial AI Platform API.
 
-    Provides:
+    This API provides backend services for:
 
-    - Identity management
-    - Organization management
-    - Industrial assets
-    - AI services
+    - Identity and authentication management
+    - Organization hierarchy management
+    - Industrial asset management
+    - Asset monitoring foundation
+    - AI-powered industrial intelligence
+
+    Authentication:
+    JWT Bearer Token authentication is required
+    for protected endpoints.
+  contact:
+    name: ForgeMind Engineering Team
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 paths:
   /api/schema/:
     get:
@@ -1623,9 +1633,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT Authorization header using Bearer token.
 tags:
 - name: Authentication
-  description: JWT authentication endpoints.
+  description: JWT authentication, token management, and user access control.
 - name: Organizations
   description: Manage industrial organizations.
 - name: Plants
@@ -1633,6 +1644,6 @@ tags:
 - name: Areas
   description: Manage production areas.
 - name: Assets
-  description: Manage industrial assets.
+  description: Manage industrial assets and equipment.
 - name: System
-  description: System monitoring endpoints.
+  description: System monitoring and health endpoints.

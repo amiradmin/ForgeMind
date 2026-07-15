@@ -217,44 +217,55 @@ SIMPLE_JWT = {
 APP_NAME = "ForgeMind"
 APP_VERSION = "1.0.0"
 
-
 # ------------------------------------------------------------------------------
 # drf-spectacular OpenAPI Documentation
 # ------------------------------------------------------------------------------
+
 SPECTACULAR_SETTINGS = {
-    "TITLE": "ForgeMind API",
+    "TITLE": f"{APP_NAME} API",
     "DESCRIPTION": """
 ForgeMind Industrial AI Platform API.
 
-Provides:
+This API provides backend services for:
 
-- Identity management
-- Organization management
-- Industrial assets
-- AI services
+- Identity and authentication management
+- Organization hierarchy management
+- Industrial asset management
+- Asset monitoring foundation
+- AI-powered industrial intelligence
+
+Authentication:
+JWT Bearer Token authentication is required
+for protected endpoints.
 """,
     "VERSION": APP_VERSION,
+    # Generate separate request and response schemas
     "COMPONENT_SPLIT_REQUEST": True,
+    # Only include versioned APIs
     "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+    # Swagger UI configuration
     "SWAGGER_UI_SETTINGS": {
         "deepLinking": True,
         "displayOperationId": True,
         "filter": True,
         "persistAuthorization": True,
     },
+    # JWT Authentication scheme
     "APPEND_COMPONENTS": {
         "securitySchemes": {
             "jwtAuth": {
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
+                "description": "JWT Authorization header using Bearer token.",
             }
         }
     },
+    # API documentation groups
     "TAGS": [
         {
             "name": "Authentication",
-            "description": "JWT authentication endpoints.",
+            "description": ("JWT authentication, token management, " "and user access control."),
         },
         {
             "name": "Organizations",
@@ -270,11 +281,19 @@ Provides:
         },
         {
             "name": "Assets",
-            "description": "Manage industrial assets.",
+            "description": "Manage industrial assets and equipment.",
         },
         {
             "name": "System",
-            "description": "System monitoring endpoints.",
+            "description": "System monitoring and health endpoints.",
         },
     ],
+    # API metadata
+    "CONTACT": {
+        "name": "ForgeMind Engineering Team",
+    },
+    "LICENSE": {
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
 }

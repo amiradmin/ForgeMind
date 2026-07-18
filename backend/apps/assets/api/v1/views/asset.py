@@ -23,10 +23,11 @@ from shared.views import BaseAPIViewSet
 )
 class AssetViewSet(BaseAPIViewSet):
     """
-    CRUD API for assets.
+    CRUD API for industrial assets.
     """
 
     serializer_class = AssetSerializer
+
     permission_classes = [
         HasRBACPermission,
     ]
@@ -43,6 +44,7 @@ class AssetViewSet(BaseAPIViewSet):
     filterset_fields = (
         "area",
         "asset_type",
+        "lifecycle_status",
         "is_active",
     )
 
@@ -52,6 +54,7 @@ class AssetViewSet(BaseAPIViewSet):
         "manufacturer",
         "model",
         "serial_number",
+        "asset_type__name",
         "area__name",
         "area__plant__name",
         "area__plant__organization__name",
@@ -61,6 +64,9 @@ class AssetViewSet(BaseAPIViewSet):
         "name",
         "code",
         "installation_date",
+        "commissioned_at",
+        "last_maintenance_at",
+        "retired_at",
         "created_at",
     )
 
@@ -68,6 +74,7 @@ class AssetViewSet(BaseAPIViewSet):
 
     def get_queryset(self):
         return Asset.objects.select_related(
+            "asset_type",
             "area",
             "area__plant",
             "area__plant__organization",

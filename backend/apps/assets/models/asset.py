@@ -7,21 +7,21 @@ from .area import Area
 
 class Asset(BaseModel):
     """
-    Physical equipment inside an Area.
-    """
+    Physical equipment installed inside an Area.
 
-    class AssetType(models.TextChoices):
-        MOTOR = "motor", "Motor"
-        PUMP = "pump", "Pump"
-        VALVE = "valve", "Valve"
-        SENSOR = "sensor", "Sensor"
-        PLC = "plc", "PLC"
-        CONVEYOR = "conveyor", "Conveyor"
-        OTHER = "other", "Other"
+    Each asset belongs to an AssetType, which defines the
+    metadata schema that applies to the asset.
+    """
 
     area = models.ForeignKey(
         Area,
         on_delete=models.CASCADE,
+        related_name="assets",
+    )
+
+    asset_type = models.ForeignKey(
+        "assets.AssetType",
+        on_delete=models.PROTECT,
         related_name="assets",
     )
 
@@ -31,12 +31,6 @@ class Asset(BaseModel):
 
     code = models.CharField(
         max_length=50,
-    )
-
-    asset_type = models.CharField(
-        max_length=30,
-        choices=AssetType.choices,
-        default=AssetType.OTHER,
     )
 
     manufacturer = models.CharField(
@@ -57,6 +51,12 @@ class Asset(BaseModel):
     installation_date = models.DateField(
         null=True,
         blank=True,
+    )
+
+    metadata = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Asset-specific metadata defined by the AssetType schema.",
     )
 
     class Meta:

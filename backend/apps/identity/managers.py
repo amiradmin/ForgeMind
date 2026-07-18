@@ -12,6 +12,7 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=email,
+            username=email,
             **extra_fields,
         )
 

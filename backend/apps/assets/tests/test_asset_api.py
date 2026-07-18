@@ -2,7 +2,13 @@ import pytest
 from rest_framework.test import APIClient
 
 from apps.assets.models import Asset
-from apps.assets.tests.factories import AreaFactory, AssetFactory, OrganizationFactory, PlantFactory
+from apps.assets.tests.factories import (
+    AreaFactory,
+    AssetFactory,
+    AssetTypeFactory,
+    OrganizationFactory,
+    PlantFactory,
+)
 
 
 @pytest.mark.django_db
@@ -44,11 +50,23 @@ def test_create_asset(authenticated_client):
 
     area = AreaFactory(plant=plant)
 
+    asset_type = AssetTypeFactory(
+        name="Pump",
+        code="pump",
+    )
+
     payload = {
         "area": str(area.id),
         "name": "Main Pump",
         "code": "PUMP001",
-        "asset_type": "pump",
+        "asset_type": str(asset_type.id),
+        "manufacturer": "Siemens",
+        "model": "SIM-100",
+        "serial_number": "SN-001",
+        "metadata": {
+            "power": "15KW",
+            "pressure": "10bar",
+        },
     }
 
     response = authenticated_client.post(

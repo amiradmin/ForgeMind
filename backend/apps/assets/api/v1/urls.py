@@ -1,6 +1,12 @@
 from rest_framework.routers import DefaultRouter
 
-from apps.assets.api.v1.views import AreaViewSet, AssetViewSet, OrganizationViewSet, PlantViewSet
+from apps.assets.api.v1.views import (
+    AreaViewSet,
+    AssetTypeViewSet,
+    AssetViewSet,
+    OrganizationViewSet,
+    PlantViewSet,
+)
 
 app_name = "assets"
 
@@ -29,4 +35,11 @@ router.register(
     AssetViewSet,
     basename="asset",
 )
+
+router.register(
+    "asset-types",
+    AssetTypeViewSet,
+    basename="asset-type",
+)
+
 urlpatterns = router.urls

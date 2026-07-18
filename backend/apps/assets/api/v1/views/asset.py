@@ -2,6 +2,8 @@ from drf_spectacular.utils import extend_schema
 
 from apps.assets.api.v1.serializers import AssetSerializer
 from apps.assets.models import Asset
+from apps.audit.models import AuditLog
+from apps.audit.services import AuditService
 from apps.identity.permissions.rbac import HasRBACPermission
 from shared.views import BaseAPIViewSet
 
@@ -79,3 +81,33 @@ class AssetViewSet(BaseAPIViewSet):
             "area__plant",
             "area__plant__organization",
         ).filter(is_active=True)
+
+    def perform_create(self, serializer):
+        asset = serializer.save()
+
+        AuditService.log(
+            user=self.request.user,
+            action=AuditLog.Action.CREATE,
+            instance=asset,
+            request=self.request,
+        )
+
+    def perform_update(self, serializer):
+        asset = serializer.save()
+
+        AuditService.log(
+            user=self.request.user,
+            action=AuditLog.Action.UPDATE,
+            instance=asset,
+            request=self.request,
+        )
+
+    def perform_destroy(self, instance):
+        AuditService.log(
+            user=self.request.user,
+            action=AuditLog.Action.DELETE,
+            instance=instance,
+            request=self.request,
+        )
+
+        instance.delete()

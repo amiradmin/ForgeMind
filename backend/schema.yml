@@ -351,6 +351,178 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/v1/asset-types/:
+    get:
+      operationId: asset_types_list
+      description: CRUD API for Asset Types.
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - asset-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAssetTypeList'
+          description: ''
+    post:
+      operationId: asset_types_create
+      description: CRUD API for Asset Types.
+      tags:
+      - asset-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetTypeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssetTypeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssetTypeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetType'
+          description: ''
+  /api/v1/asset-types/{id}/:
+    get:
+      operationId: asset_types_retrieve
+      description: CRUD API for Asset Types.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this asset type.
+        required: true
+      tags:
+      - asset-types
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetType'
+          description: ''
+    put:
+      operationId: asset_types_update
+      description: CRUD API for Asset Types.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this asset type.
+        required: true
+      tags:
+      - asset-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetTypeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssetTypeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssetTypeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetType'
+          description: ''
+    patch:
+      operationId: asset_types_partial_update
+      description: CRUD API for Asset Types.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this asset type.
+        required: true
+      tags:
+      - asset-types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAssetTypeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAssetTypeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAssetTypeRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetType'
+          description: ''
+    delete:
+      operationId: asset_types_destroy
+      description: CRUD API for Asset Types.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this asset type.
+        required: true
+      tags:
+      - asset-types
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
   /api/v1/assets/:
     get:
       operationId: assets_list
@@ -367,26 +539,31 @@ paths:
         name: asset_type
         schema:
           type: string
-          enum:
-          - conveyor
-          - motor
-          - other
-          - plc
-          - pump
-          - sensor
-          - valve
-        description: |-
-          * `motor` - Motor
-          * `pump` - Pump
-          * `valve` - Valve
-          * `sensor` - Sensor
-          * `plc` - PLC
-          * `conveyor` - Conveyor
-          * `other` - Other
+          format: uuid
       - in: query
         name: is_active
         schema:
           type: boolean
+      - in: query
+        name: lifecycle_status
+        schema:
+          type: string
+          enum:
+          - commissioned
+          - installed
+          - maintenance
+          - operational
+          - out_of_service
+          - planned
+          - retired
+        description: |-
+          * `planned` - Planned
+          * `installed` - Installed
+          * `commissioned` - Commissioned
+          * `operational` - Operational
+          * `maintenance` - Maintenance
+          * `out_of_service` - Out of Service
+          * `retired` - Retired
       - name: ordering
         required: false
         in: query
@@ -426,11 +603,20 @@ paths:
                       area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                       name: Main Cooling Pump
                       code: PUMP-001
-                      asset_type: pump
+                      asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
+                      asset_type_name: Pump
                       manufacturer: Siemens
                       model: SIPOS 7
                       serial_number: SN-2026-001
                       installation_date: '2026-01-15'
+                      lifecycle_status: operational
+                      commissioned_at: '2026-01-20'
+                      last_maintenance_at: '2026-06-01'
+                      retired_at: null
+                      metadata:
+                        power: 15KW
+                        pressure: 10bar
+                        manufacturer: Siemens
                       is_active: true
                       created_at: '2026-07-14T10:30:00Z'
                       updated_at: '2026-07-14T10:30:00Z'
@@ -454,11 +640,19 @@ paths:
                   area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                   name: Main Cooling Pump
                   code: PUMP-001
-                  asset_type: pump
+                  asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
                   manufacturer: Siemens
                   model: SIPOS 7
                   serial_number: SN-2026-001
                   installation_date: '2026-01-15'
+                  lifecycle_status: operational
+                  commissioned_at: '2026-01-20'
+                  last_maintenance_at: '2026-06-01'
+                  retired_at: null
+                  metadata:
+                    power: 15KW
+                    pressure: 10bar
+                    manufacturer: Siemens
                   is_active: true
                 summary: Industrial Pump Asset Example
           application/x-www-form-urlencoded:
@@ -483,11 +677,20 @@ paths:
                     area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                     name: Main Cooling Pump
                     code: PUMP-001
-                    asset_type: pump
+                    asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
+                    asset_type_name: Pump
                     manufacturer: Siemens
                     model: SIPOS 7
                     serial_number: SN-2026-001
                     installation_date: '2026-01-15'
+                    lifecycle_status: operational
+                    commissioned_at: '2026-01-20'
+                    last_maintenance_at: '2026-06-01'
+                    retired_at: null
+                    metadata:
+                      power: 15KW
+                      pressure: 10bar
+                      manufacturer: Siemens
                     is_active: true
                     created_at: '2026-07-14T10:30:00Z'
                     updated_at: '2026-07-14T10:30:00Z'
@@ -524,11 +727,20 @@ paths:
                     area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                     name: Main Cooling Pump
                     code: PUMP-001
-                    asset_type: pump
+                    asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
+                    asset_type_name: Pump
                     manufacturer: Siemens
                     model: SIPOS 7
                     serial_number: SN-2026-001
                     installation_date: '2026-01-15'
+                    lifecycle_status: operational
+                    commissioned_at: '2026-01-20'
+                    last_maintenance_at: '2026-06-01'
+                    retired_at: null
+                    metadata:
+                      power: 15KW
+                      pressure: 10bar
+                      manufacturer: Siemens
                     is_active: true
                     created_at: '2026-07-14T10:30:00Z'
                     updated_at: '2026-07-14T10:30:00Z'
@@ -560,11 +772,19 @@ paths:
                   area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                   name: Main Cooling Pump
                   code: PUMP-001
-                  asset_type: pump
+                  asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
                   manufacturer: Siemens
                   model: SIPOS 7
                   serial_number: SN-2026-001
                   installation_date: '2026-01-15'
+                  lifecycle_status: operational
+                  commissioned_at: '2026-01-20'
+                  last_maintenance_at: '2026-06-01'
+                  retired_at: null
+                  metadata:
+                    power: 15KW
+                    pressure: 10bar
+                    manufacturer: Siemens
                   is_active: true
                 summary: Industrial Pump Asset Example
           application/x-www-form-urlencoded:
@@ -589,11 +809,20 @@ paths:
                     area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                     name: Main Cooling Pump
                     code: PUMP-001
-                    asset_type: pump
+                    asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
+                    asset_type_name: Pump
                     manufacturer: Siemens
                     model: SIPOS 7
                     serial_number: SN-2026-001
                     installation_date: '2026-01-15'
+                    lifecycle_status: operational
+                    commissioned_at: '2026-01-20'
+                    last_maintenance_at: '2026-06-01'
+                    retired_at: null
+                    metadata:
+                      power: 15KW
+                      pressure: 10bar
+                      manufacturer: Siemens
                     is_active: true
                     created_at: '2026-07-14T10:30:00Z'
                     updated_at: '2026-07-14T10:30:00Z'
@@ -625,11 +854,19 @@ paths:
                   area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                   name: Main Cooling Pump
                   code: PUMP-001
-                  asset_type: pump
+                  asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
                   manufacturer: Siemens
                   model: SIPOS 7
                   serial_number: SN-2026-001
                   installation_date: '2026-01-15'
+                  lifecycle_status: operational
+                  commissioned_at: '2026-01-20'
+                  last_maintenance_at: '2026-06-01'
+                  retired_at: null
+                  metadata:
+                    power: 15KW
+                    pressure: 10bar
+                    manufacturer: Siemens
                   is_active: true
                 summary: Industrial Pump Asset Example
           application/x-www-form-urlencoded:
@@ -653,11 +890,20 @@ paths:
                     area: 7d9f4c8e-2f7a-4c9b-9a8a-123456789abc
                     name: Main Cooling Pump
                     code: PUMP-001
-                    asset_type: pump
+                    asset_type: 9a6e6f95-1d3d-43a4-a111-123456789abc
+                    asset_type_name: Pump
                     manufacturer: Siemens
                     model: SIPOS 7
                     serial_number: SN-2026-001
                     installation_date: '2026-01-15'
+                    lifecycle_status: operational
+                    commissioned_at: '2026-01-20'
+                    last_maintenance_at: '2026-06-01'
+                    retired_at: null
+                    metadata:
+                      power: 15KW
+                      pressure: 10bar
+                      manufacturer: Siemens
                     is_active: true
                     created_at: '2026-07-14T10:30:00Z'
                     updated_at: '2026-07-14T10:30:00Z'
@@ -1216,7 +1462,11 @@ components:
           type: string
           maxLength: 50
         asset_type:
-          $ref: '#/components/schemas/AssetTypeEnum'
+          type: string
+          format: uuid
+        asset_type_name:
+          type: string
+          readOnly: true
         manufacturer:
           type: string
           maxLength: 100
@@ -1230,6 +1480,22 @@ components:
           type: string
           format: date
           nullable: true
+        lifecycle_status:
+          $ref: '#/components/schemas/LifecycleStatusEnum'
+        commissioned_at:
+          type: string
+          format: date
+          nullable: true
+        last_maintenance_at:
+          type: string
+          format: date
+          nullable: true
+        retired_at:
+          type: string
+          format: date
+          nullable: true
+        metadata:
+          description: Asset-specific metadata defined by the AssetType schema.
         is_active:
           type: boolean
         created_at:
@@ -1242,6 +1508,8 @@ components:
           readOnly: true
       required:
       - area
+      - asset_type
+      - asset_type_name
       - code
       - created_at
       - id
@@ -1263,7 +1531,8 @@ components:
           minLength: 1
           maxLength: 50
         asset_type:
-          $ref: '#/components/schemas/AssetTypeEnum'
+          type: string
+          format: uuid
         manufacturer:
           type: string
           maxLength: 100
@@ -1277,30 +1546,84 @@ components:
           type: string
           format: date
           nullable: true
+        lifecycle_status:
+          $ref: '#/components/schemas/LifecycleStatusEnum'
+        commissioned_at:
+          type: string
+          format: date
+          nullable: true
+        last_maintenance_at:
+          type: string
+          format: date
+          nullable: true
+        retired_at:
+          type: string
+          format: date
+          nullable: true
+        metadata:
+          description: Asset-specific metadata defined by the AssetType schema.
         is_active:
           type: boolean
       required:
       - area
+      - asset_type
       - code
       - name
-    AssetTypeEnum:
-      enum:
-      - motor
-      - pump
-      - valve
-      - sensor
-      - plc
-      - conveyor
-      - other
-      type: string
-      description: |-
-        * `motor` - Motor
-        * `pump` - Pump
-        * `valve` - Valve
-        * `sensor` - Sensor
-        * `plc` - PLC
-        * `conveyor` - Conveyor
-        * `other` - Other
+    AssetType:
+      type: object
+      description: Serializer for AssetType.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+        metadata_schema:
+          description: JSON schema describing supported metadata.
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - created_at
+      - id
+      - name
+      - updated_at
+    AssetTypeRequest:
+      type: object
+      description: Serializer for AssetType.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        code:
+          type: string
+          minLength: 1
+          maxLength: 50
+        description:
+          type: string
+        metadata_schema:
+          description: JSON schema describing supported metadata.
+        is_active:
+          type: boolean
+      required:
+      - code
+      - name
     HealthCheck:
       type: object
       properties:
@@ -1322,6 +1645,24 @@ components:
       - status
       - timestamp
       - version
+    LifecycleStatusEnum:
+      enum:
+      - planned
+      - installed
+      - commissioned
+      - operational
+      - maintenance
+      - out_of_service
+      - retired
+      type: string
+      description: |-
+        * `planned` - Planned
+        * `installed` - Installed
+        * `commissioned` - Commissioned
+        * `operational` - Operational
+        * `maintenance` - Maintenance
+        * `out_of_service` - Out of Service
+        * `retired` - Retired
     Organization:
       type: object
       description: Serializer for Organization.
@@ -1406,6 +1747,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Asset'
+    PaginatedAssetTypeList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetType'
     PaginatedOrganizationList:
       type: object
       required:
@@ -1485,7 +1849,8 @@ components:
           minLength: 1
           maxLength: 50
         asset_type:
-          $ref: '#/components/schemas/AssetTypeEnum'
+          type: string
+          format: uuid
         manufacturer:
           type: string
           maxLength: 100
@@ -1499,6 +1864,40 @@ components:
           type: string
           format: date
           nullable: true
+        lifecycle_status:
+          $ref: '#/components/schemas/LifecycleStatusEnum'
+        commissioned_at:
+          type: string
+          format: date
+          nullable: true
+        last_maintenance_at:
+          type: string
+          format: date
+          nullable: true
+        retired_at:
+          type: string
+          format: date
+          nullable: true
+        metadata:
+          description: Asset-specific metadata defined by the AssetType schema.
+        is_active:
+          type: boolean
+    PatchedAssetTypeRequest:
+      type: object
+      description: Serializer for AssetType.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        code:
+          type: string
+          minLength: 1
+          maxLength: 50
+        description:
+          type: string
+        metadata_schema:
+          description: JSON schema describing supported metadata.
         is_active:
           type: boolean
     PatchedOrganizationRequest:

@@ -13,6 +13,15 @@ class Asset(BaseModel):
     metadata schema that applies to the asset.
     """
 
+    class LifecycleStatus(models.TextChoices):
+        PLANNED = "planned", "Planned"
+        INSTALLED = "installed", "Installed"
+        COMMISSIONED = "commissioned", "Commissioned"
+        OPERATIONAL = "operational", "Operational"
+        MAINTENANCE = "maintenance", "Maintenance"
+        OUT_OF_SERVICE = "out_of_service", "Out of Service"
+        RETIRED = "retired", "Retired"
+
     area = models.ForeignKey(
         Area,
         on_delete=models.CASCADE,
@@ -49,6 +58,27 @@ class Asset(BaseModel):
     )
 
     installation_date = models.DateField(
+        null=True,
+        blank=True,
+    )
+
+    lifecycle_status = models.CharField(
+        max_length=30,
+        choices=LifecycleStatus.choices,
+        default=LifecycleStatus.PLANNED,
+    )
+
+    commissioned_at = models.DateField(
+        null=True,
+        blank=True,
+    )
+
+    last_maintenance_at = models.DateField(
+        null=True,
+        blank=True,
+    )
+
+    retired_at = models.DateField(
         null=True,
         blank=True,
     )

@@ -34,6 +34,10 @@ def authenticated_client(db):
         "asset.create",
         "asset.update",
         "asset.delete",
+        "asset_type.view",
+        "asset_type.create",
+        "asset_type.update",
+        "asset_type.delete",
     ]
 
     for code in permissions:

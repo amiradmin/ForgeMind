@@ -1,5 +1,6 @@
 from .area import Area
 from .asset import Asset
+from .asset_type import AssetType
 from .organization import Organization
 from .plant import Plant
 
@@ -8,4 +9,5 @@ __all__ = [
     "Plant",
     "Area",
     "Asset",
+    "AssetType",
 ]

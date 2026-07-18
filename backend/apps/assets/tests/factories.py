@@ -1,6 +1,12 @@
 import factory
 
-from apps.assets.models import Area, Asset, Organization, Plant
+from apps.assets.models import (
+    Area,
+    Asset,
+    AssetType,
+    Organization,
+    Plant,
+)
 
 
 class OrganizationFactory(factory.django.DjangoModelFactory):
@@ -8,15 +14,10 @@ class OrganizationFactory(factory.django.DjangoModelFactory):
         model = Organization
 
     name = factory.Sequence(lambda n: f"Organization {n}")
-
     code = factory.Sequence(lambda n: f"ORG-{n}")
-
     description = factory.Faker("text")
-
     website = factory.Faker("url")
-
     email = factory.Faker("email")
-
     phone = factory.Faker("phone_number")
 
 
@@ -25,9 +26,7 @@ class PlantFactory(factory.django.DjangoModelFactory):
         model = Plant
 
     name = factory.Sequence(lambda n: f"Plant {n}")
-
     code = factory.Sequence(lambda n: f"PL-{n}")
-
     organization = factory.SubFactory(OrganizationFactory)
 
 
@@ -36,10 +35,23 @@ class AreaFactory(factory.django.DjangoModelFactory):
         model = Area
 
     name = factory.Sequence(lambda n: f"Area {n}")
-
     code = factory.Sequence(lambda n: f"AR-{n}")
-
     plant = factory.SubFactory(PlantFactory)
+
+
+class AssetTypeFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = AssetType
+
+    name = factory.Sequence(lambda n: f"Pump {n}")
+    code = factory.Sequence(lambda n: f"PUMP-{n}")
+
+    description = factory.Faker("sentence")
+
+    metadata_schema = {
+        "power": "string",
+        "pressure": "string",
+    }
 
 
 class AssetFactory(factory.django.DjangoModelFactory):
@@ -47,7 +59,17 @@ class AssetFactory(factory.django.DjangoModelFactory):
         model = Asset
 
     name = factory.Sequence(lambda n: f"Asset {n}")
-
     code = factory.Sequence(lambda n: f"AS-{n}")
 
     area = factory.SubFactory(AreaFactory)
+
+    asset_type = factory.SubFactory(AssetTypeFactory)
+
+    manufacturer = "Siemens"
+    model = "SIM-100"
+    serial_number = factory.Sequence(lambda n: f"SN-{n}")
+
+    metadata = {
+        "power": "15KW",
+        "pressure": "10bar",
+    }

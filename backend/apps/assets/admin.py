@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Area, Asset, Organization, Plant
+from .models import Area, Asset, AssetType, Organization, Plant
 
 
 @admin.register(Organization)
@@ -49,3 +49,16 @@ class AssetAdmin(admin.ModelAdmin):
     )
 
     ordering = ("name",)
+
+
+@admin.register(AssetType)
+class AssetTypeAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "code",
+    )
+
+    search_fields = (
+        "name",
+        "code",
+    )

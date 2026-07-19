@@ -21,12 +21,13 @@ services:
       postgres:
         condition: service_healthy
       redis:
-        condition: service_started
+        condition: service_healthy
 
     restart: unless-stopped
 
     networks:
       - forgemind-network
+
 
   postgres:
     image: postgres:17
@@ -58,6 +59,7 @@ services:
     networks:
       - forgemind-network
 
+
   redis:
     image: redis:8-alpine
 
@@ -80,8 +82,66 @@ services:
     networks:
       - forgemind-network
 
+
+  celery-worker:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+
+    container_name: forgemind-celery-worker
+
+    command: celery -A config worker --loglevel=info
+
+    volumes:
+      - ../../backend:/app
+
+    env_file:
+      - ../../backend/.env
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+      postgres:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+    networks:
+      - forgemind-network
+
+
+  celery-beat:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+
+    container_name: forgemind-celery-beat
+
+    command: celery -A config beat --loglevel=info
+
+    volumes:
+      - ../../backend:/app
+
+    env_file:
+      - ../../backend/.env
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+      postgres:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+    networks:
+      - forgemind-network
+
+
 volumes:
   postgres_data:
+
 
 networks:
   forgemind-network:

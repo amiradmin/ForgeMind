@@ -78,3 +78,7 @@ logs/
 # Docker
 # ==========================================
 *.pid
+
+
+# Celery
+celerybeat-schedule

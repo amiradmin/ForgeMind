@@ -40,3 +40,6 @@ psycopg[binary]
 gunicorn
 django-filter
 
+celery
+redis
+

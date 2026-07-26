@@ -2,7 +2,6 @@ import factory
 
 from apps.assets.tests.factories import AssetFactory
 from apps.identity.tests.factories import UserFactory
-
 from apps.maintenance.models import (
     MaintenancePlan,
     MaintenanceRequest,

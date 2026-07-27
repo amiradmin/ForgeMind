@@ -2,8 +2,8 @@ import pytest
 from rest_framework.test import APIRequestFactory
 
 from apps.identity.models import Permission, Role, User
+from apps.identity.permissions.rbac import HasRBACPermission
 from apps.identity.services.authorization import AuthorizationService
-from shared.permissions.rbac import HasRBACPermission
 
 
 class TestView:

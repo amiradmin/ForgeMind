@@ -61,9 +61,7 @@ class MaintenanceRequestViewSet(BaseAPIViewSet):
         "created_at",
     )
 
-    ordering = (
-        "-requested_at",
-    )
+    ordering = ("-requested_at",)
 
     def get_queryset(self):
         return MaintenanceRequest.objects.select_related(

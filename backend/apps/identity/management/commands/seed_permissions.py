@@ -5,7 +5,6 @@ from apps.identity.models.permission import Permission
 from apps.identity.models.role import Role
 from apps.identity.models.role_permission import RolePermission
 
-
 PERMISSIONS = [
     ("View Organizations", "organization.view"),
     ("Create Organizations", "organization.create"),
@@ -150,8 +149,4 @@ class Command(BaseCommand):
                     permission=permissions[code],
                 )
 
-        self.stdout.write(
-            self.style.SUCCESS(
-                "Roles and permissions seeded successfully."
-            )
-        )
+        self.stdout.write(self.style.SUCCESS("Roles and permissions seeded successfully."))

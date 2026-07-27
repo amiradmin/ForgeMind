@@ -65,9 +65,7 @@ class WorkOrderViewSet(BaseAPIViewSet):
         "created_at",
     )
 
-    ordering = (
-        "-created_at",
-    )
+    ordering = ("-created_at",)
 
     def get_queryset(self):
         return WorkOrder.objects.select_related(

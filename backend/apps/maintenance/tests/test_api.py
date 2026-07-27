@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 
-from apps.assets.tests.factories import AreaFactory, AssetFactory, OrganizationFactory, PlantFactory
+from apps.assets.tests.factories import AssetFactory
 from apps.maintenance.models import MaintenancePlan, MaintenanceRequest, WorkOrder
 from apps.maintenance.tests.factories import (
     MaintenancePlanFactory,

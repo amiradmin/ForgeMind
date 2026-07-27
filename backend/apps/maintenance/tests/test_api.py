@@ -2,12 +2,20 @@ import pytest
 from rest_framework.test import APIClient
 
 from apps.assets.tests.factories import AssetFactory
-from apps.maintenance.models import MaintenancePlan, MaintenanceRequest, WorkOrder
+from apps.maintenance.models import (
+    MaintenancePlan,
+    MaintenanceRequest,
+    WorkOrder,
+)
 from apps.maintenance.tests.factories import (
     MaintenancePlanFactory,
     MaintenanceRequestFactory,
     WorkOrderFactory,
 )
+
+# =============================================================================
+# Maintenance Plan API Tests
+# =============================================================================
 
 
 @pytest.mark.django_db
@@ -36,7 +44,7 @@ def test_list_maintenance_plans(authenticated_client):
 
     assert response.status_code == 200
     assert response.data["count"] == 1
-    assert response.data["results"][0]["name"] == "Monthly Pump Maintenance"
+    assert response.data["results"][0]["name"] == ("Monthly Pump Maintenance")
 
 
 @pytest.mark.django_db
@@ -69,7 +77,6 @@ def test_create_maintenance_plan(authenticated_client):
     assert plan.maintenance_type == "preventive"
     assert plan.frequency == 1
     assert plan.frequency_unit == "months"
-
     assert plan.next_due_date is not None
 
     assert response.data["name"] == "Monthly Pump Maintenance"
@@ -98,7 +105,75 @@ def test_filter_maintenance_plans_by_asset(authenticated_client):
 
     assert response.status_code == 200
     assert response.data["count"] == 1
-    assert response.data["results"][0]["name"] == "Pump Maintenance"
+    assert response.data["results"][0]["name"] == ("Pump Maintenance")
+
+
+@pytest.mark.django_db
+def test_search_maintenance_plans(authenticated_client):
+    asset = AssetFactory(
+        name="Main Cooling Pump",
+    )
+
+    MaintenancePlanFactory(
+        asset=asset,
+        name="Monthly Pump Maintenance",
+        description="Preventive maintenance for the cooling pump",
+    )
+
+    MaintenancePlanFactory(
+        name="Generator Maintenance",
+        description="Generator inspection",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-plans/?search=cooling",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["name"] == ("Monthly Pump Maintenance")
+
+
+@pytest.mark.django_db
+def test_order_maintenance_plans(authenticated_client):
+    MaintenancePlanFactory(
+        name="Zebra Maintenance",
+    )
+
+    MaintenancePlanFactory(
+        name="Alpha Maintenance",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-plans/?ordering=name",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 2
+    assert response.data["results"][0]["name"] == ("Alpha Maintenance")
+    assert response.data["results"][1]["name"] == ("Zebra Maintenance")
+
+
+@pytest.mark.django_db
+def test_paginate_maintenance_plans(authenticated_client):
+    for index in range(25):
+        MaintenancePlanFactory(
+            name=f"Maintenance Plan {index:02d}",
+        )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-plans/?page=2",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 25
+    assert len(response.data["results"]) == 5
+    assert response.data["previous"] is not None
+
+
+# =============================================================================
+# Maintenance Request API Tests
+# =============================================================================
 
 
 @pytest.mark.django_db
@@ -127,7 +202,7 @@ def test_list_maintenance_requests(authenticated_client):
 
     assert response.status_code == 200
     assert response.data["count"] == 1
-    assert response.data["results"][0]["title"] == "Pump Failure"
+    assert response.data["results"][0]["title"] == ("Pump Failure")
 
 
 @pytest.mark.django_db
@@ -164,6 +239,95 @@ def test_create_maintenance_request(authenticated_client):
 
 
 @pytest.mark.django_db
+def test_filter_maintenance_requests_by_status(authenticated_client):
+    MaintenanceRequestFactory(
+        title="Open Pump Failure",
+        status="open",
+    )
+
+    MaintenanceRequestFactory(
+        title="Resolved Pump Failure",
+        status="resolved",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-requests/?status=open",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["title"] == ("Open Pump Failure")
+
+
+@pytest.mark.django_db
+def test_search_maintenance_requests(authenticated_client):
+    asset = AssetFactory(
+        name="Main Cooling Pump",
+    )
+
+    MaintenanceRequestFactory(
+        asset=asset,
+        title="Pump Failure",
+        description="Cooling system failure",
+    )
+
+    MaintenanceRequestFactory(
+        title="Generator Failure",
+        description="Generator is not working",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-requests/?search=cooling",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["title"] == ("Pump Failure")
+
+
+@pytest.mark.django_db
+def test_order_maintenance_requests(authenticated_client):
+    MaintenanceRequestFactory(
+        title="Zebra Failure",
+    )
+
+    MaintenanceRequestFactory(
+        title="Alpha Failure",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-requests/?ordering=title",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 2
+    assert response.data["results"][0]["title"] == ("Alpha Failure")
+    assert response.data["results"][1]["title"] == ("Zebra Failure")
+
+
+@pytest.mark.django_db
+def test_paginate_maintenance_requests(authenticated_client):
+    for index in range(25):
+        MaintenanceRequestFactory(
+            title=f"Maintenance Request {index:02d}",
+        )
+
+    response = authenticated_client.get(
+        "/api/v1/maintenance-requests/?page=2",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 25
+    assert len(response.data["results"]) == 5
+    assert response.data["previous"] is not None
+
+
+# =============================================================================
+# Work Order API Tests
+# =============================================================================
+
+
+@pytest.mark.django_db
 def test_work_order_authentication_required():
     client = APIClient()
 
@@ -189,7 +353,7 @@ def test_list_work_orders(authenticated_client):
 
     assert response.status_code == 200
     assert response.data["count"] == 1
-    assert response.data["results"][0]["title"] == "Repair Main Pump"
+    assert response.data["results"][0]["title"] == ("Repair Main Pump")
 
 
 @pytest.mark.django_db
@@ -227,3 +391,87 @@ def test_create_work_order(authenticated_client):
 
     assert response.data["title"] == "Repair Main Pump"
     assert response.data["priority"] == "high"
+
+
+@pytest.mark.django_db
+def test_filter_work_orders_by_status(authenticated_client):
+    WorkOrderFactory(
+        title="Open Pump Repair",
+        status="open",
+    )
+
+    WorkOrderFactory(
+        title="Completed Pump Repair",
+        status="completed",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/work-orders/?status=open",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["title"] == ("Open Pump Repair")
+
+
+@pytest.mark.django_db
+def test_search_work_orders(authenticated_client):
+    asset = AssetFactory(
+        name="Main Cooling Pump",
+    )
+
+    WorkOrderFactory(
+        asset=asset,
+        title="Repair Pump",
+        description="Repair cooling system",
+    )
+
+    WorkOrderFactory(
+        title="Repair Generator",
+        description="Repair generator system",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/work-orders/?search=cooling",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 1
+    assert response.data["results"][0]["title"] == ("Repair Pump")
+
+
+@pytest.mark.django_db
+def test_order_work_orders(authenticated_client):
+    WorkOrderFactory(
+        title="Zebra Repair",
+    )
+
+    WorkOrderFactory(
+        title="Alpha Repair",
+    )
+
+    response = authenticated_client.get(
+        "/api/v1/work-orders/?ordering=title",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 2
+    assert response.data["results"][0]["title"] == ("Alpha Repair")
+    assert response.data["results"][1]["title"] == ("Zebra Repair")
+
+
+@pytest.mark.django_db
+def test_paginate_work_orders(authenticated_client):
+    for index in range(25):
+        WorkOrderFactory(
+            title=f"Work Order {index:02d}",
+        )
+
+    response = authenticated_client.get(
+        "/api/v1/work-orders/?page=2",
+    )
+
+    assert response.status_code == 200
+    assert response.data["count"] == 25
+    assert len(response.data["results"]) == 5
+    assert response.data["previous"] is not None

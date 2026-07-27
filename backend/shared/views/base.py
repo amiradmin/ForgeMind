@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 
-from shared.permissions.rbac import HasRBACPermission
+from apps.identity.permissions.rbac import HasRBACPermission
 
 
 class BaseAPIViewSet(viewsets.ModelViewSet):

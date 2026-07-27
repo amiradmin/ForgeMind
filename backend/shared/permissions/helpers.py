@@ -1,4 +1,4 @@
-from shared.permissions.rbac import HasRBACPermission
+from apps.identity.permissions.rbac import HasRBACPermission
 
 
 class ViewPermission(HasRBACPermission):

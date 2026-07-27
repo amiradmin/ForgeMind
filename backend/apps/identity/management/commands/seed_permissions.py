@@ -5,6 +5,7 @@ from apps.identity.models.permission import Permission
 from apps.identity.models.role import Role
 from apps.identity.models.role_permission import RolePermission
 
+
 PERMISSIONS = [
     ("View Organizations", "organization.view"),
     ("Create Organizations", "organization.create"),
@@ -24,6 +25,18 @@ PERMISSIONS = [
     ("Delete Assets", "asset.delete"),
     ("Manage Users", "user.manage"),
     ("Manage Roles", "role.manage"),
+    ("View Maintenance Plans", "maintenance_plan.view"),
+    ("Create Maintenance Plans", "maintenance_plan.create"),
+    ("Update Maintenance Plans", "maintenance_plan.update"),
+    ("Delete Maintenance Plans", "maintenance_plan.delete"),
+    ("View Maintenance Requests", "maintenance_request.view"),
+    ("Create Maintenance Requests", "maintenance_request.create"),
+    ("Update Maintenance Requests", "maintenance_request.update"),
+    ("Delete Maintenance Requests", "maintenance_request.delete"),
+    ("View Work Orders", "work_order.view"),
+    ("Create Work Orders", "work_order.create"),
+    ("Update Work Orders", "work_order.update"),
+    ("Delete Work Orders", "work_order.delete"),
 ]
 
 
@@ -45,6 +58,18 @@ ROLE_PERMISSIONS = {
         "asset.create",
         "asset.update",
         "asset.delete",
+        "maintenance_plan.view",
+        "maintenance_plan.create",
+        "maintenance_plan.update",
+        "maintenance_plan.delete",
+        "maintenance_request.view",
+        "maintenance_request.create",
+        "maintenance_request.update",
+        "maintenance_request.delete",
+        "work_order.view",
+        "work_order.create",
+        "work_order.update",
+        "work_order.delete",
         "user.manage",
         "role.manage",
     ],
@@ -59,6 +84,15 @@ ROLE_PERMISSIONS = {
         "asset.view",
         "asset.create",
         "asset.update",
+        "maintenance_plan.view",
+        "maintenance_plan.create",
+        "maintenance_plan.update",
+        "maintenance_request.view",
+        "maintenance_request.create",
+        "maintenance_request.update",
+        "work_order.view",
+        "work_order.create",
+        "work_order.update",
     ],
     "Operator": [
         "plant.view",
@@ -66,12 +100,21 @@ ROLE_PERMISSIONS = {
         "asset.view",
         "asset.create",
         "asset.update",
+        "maintenance_request.view",
+        "maintenance_request.create",
+        "maintenance_request.update",
+        "work_order.view",
+        "work_order.create",
+        "work_order.update",
     ],
     "Viewer": [
         "organization.view",
         "plant.view",
         "area.view",
         "asset.view",
+        "maintenance_plan.view",
+        "maintenance_request.view",
+        "work_order.view",
     ],
 }
 
@@ -107,4 +150,8 @@ class Command(BaseCommand):
                     permission=permissions[code],
                 )
 
-        self.stdout.write(self.style.SUCCESS("Roles and permissions seeded successfully."))
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Roles and permissions seeded successfully."
+            )
+        )

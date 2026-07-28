@@ -14,8 +14,8 @@ from .enums import (
 
 class IndustrialEvent(models.Model):
     """
-    Represents an operational or industrial event associated
-    with an industrial asset.
+    Represents an operational or industrial event
+    associated with an industrial asset.
     """
 
     id = models.UUIDField(
@@ -80,6 +80,11 @@ class IndustrialEvent(models.Model):
         on_delete=models.SET_NULL,
         related_name="resolved_industrial_events",
         null=True,
+        blank=True,
+    )
+
+    metadata = models.JSONField(
+        default=dict,
         blank=True,
     )
 

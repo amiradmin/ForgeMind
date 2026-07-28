@@ -9,7 +9,8 @@ from .enums import TelemetryQuality
 
 class Telemetry(models.Model):
     """
-    Represents a telemetry measurement produced by an industrial asset.
+    Represents a telemetry measurement
+    produced by an industrial asset.
     """
 
     id = models.UUIDField(
@@ -43,8 +44,17 @@ class Telemetry(models.Model):
 
     recorded_at = models.DateTimeField()
 
+    metadata = models.JSONField(
+        default=dict,
+        blank=True,
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
     )
 
     class Meta:

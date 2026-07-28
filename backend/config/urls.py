@@ -30,6 +30,10 @@ urlpatterns = [
         "api/v1/",
         include("apps.maintenance.api.v1.urls"),
     ),
+    path(
+        "api/v1/",
+        include("apps.telemetry.api.v1.urls"),
+    ),
     # OpenAPI schema
     path(
         "api/schema/",

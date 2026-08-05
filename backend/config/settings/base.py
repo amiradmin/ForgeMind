@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "apps.audit.apps.AuditConfig",
     "apps.maintenance.apps.MaintenanceConfig",
     "apps.telemetry.apps.TelemetryConfig",
+    "apps.operational_timeline.apps.OperationalTimelineConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -268,7 +269,9 @@ for protected endpoints.
     "TAGS": [
         {
             "name": "Authentication",
-            "description": ("JWT authentication, token management, " "and user access control."),
+            "description": (
+                "JWT authentication, token management, " "and user access control."
+            ),
         },
         {
             "name": "Organizations",

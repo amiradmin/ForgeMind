@@ -269,9 +269,7 @@ for protected endpoints.
     "TAGS": [
         {
             "name": "Authentication",
-            "description": (
-                "JWT authentication, token management, " "and user access control."
-            ),
+            "description": ("JWT authentication, token management, " "and user access control."),
         },
         {
             "name": "Organizations",

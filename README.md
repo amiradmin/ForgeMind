@@ -1,215 +1,317 @@
 # 🚀 ForgeMind
 
-> **Enterprise Industrial AI Platform for Predictive Maintenance, Energy Monitoring, and CMMS**
+> **Industrial AI & Enterprise Intelligence Platform for Heavy Industry**
 
-ForgeMind is an open-source enterprise platform designed for heavy industries such as steel plants, mining, cement, power generation, and manufacturing.
+ForgeMind is an open-source, modular platform for industrial organizations that want to connect **assets, telemetry, operations, maintenance, and AI** in one system.
 
-The project combines Industrial IoT, Predictive Maintenance, Computerized Maintenance Management (CMMS), Energy Management, and Artificial Intelligence into a single modular platform.
+The platform is designed for industries such as steel, mining, cement, power generation, oil & gas, and advanced manufacturing.
 
-This repository documents the complete engineering journey of building ForgeMind using professional software engineering practices, including GitHub Issues, Pull Requests, CI-ready architecture, Docker, and sprint-based development.
-
----
-
-# 🌍 Vision
-
-Modern industrial companies often use multiple disconnected systems for maintenance, energy monitoring, asset management, and production analytics.
-
-ForgeMind aims to unify these capabilities into a single intelligent platform capable of:
-
-* Predictive Maintenance (PdM)
-* Energy Monitoring
-* CMMS
-* Asset Management
-* AI-assisted Decision Support
-* Digital Twin Integration
-* Industrial Analytics
+ForgeMind is being developed with a production-oriented engineering approach: modular Django architecture, REST APIs, PostgreSQL, Redis/Celery, Docker, automated testing, CI, and an extensible AI services layer.
 
 ---
 
-# ✨ Current Features
+## 🌍 Vision
 
-## Infrastructure
+Industrial organizations often operate separate systems for asset management, maintenance, telemetry, energy, production analytics, and AI.
 
-* Docker Development Environment
-* PostgreSQL Database
-* Redis
-* Environment-based Configuration
-* Modular Django Settings
-* Health Check Endpoint
+ForgeMind aims to provide a unified intelligence layer across these systems:
 
-## Authentication
+- **Asset Management**
+- **Industrial Telemetry**
+- **Operational Timeline & Events**
+- **Maintenance & CMMS**
+- **Energy Monitoring**
+- **Predictive Maintenance**
+- **Computer Vision**
+- **Industrial Analytics**
+- **AI-assisted Decision Support**
+- **Digital Twin Integration**
 
-* Custom User Model
-* JWT Authentication
-* Login API
-* Refresh Token API
-* User Profile API
-
----
-
-# 🏭 Planned Modules
-
-* Organization Management
-* Plant Management
-* Production Areas
-* Asset Registry
-* CMMS
-* Preventive Maintenance
-* Work Orders
-* Spare Parts Inventory
-* Energy Monitoring
-* Energy Forecasting
-* Predictive Maintenance
-* Remaining Useful Life (RUL)
-* Failure Prediction
-* AI Assistant
-* Computer Vision
-* Conveyor Monitoring
-* Digital Twin
-* Sustainability Dashboard
+The long-term goal is to move from **monitoring what happened** to **understanding why it happened and predicting what will happen next**.
 
 ---
 
-# 🏗 Architecture
+## 🧠 Core Domain Model
+
+ForgeMind is being structured around the industrial lifecycle:
 
 ```text
-                 React Frontend
-                        │
-                        │ REST API
-                        ▼
-               Django REST Framework
-                        │
-     ┌──────────────────┼──────────────────┐
-     │                  │                  │
-     ▼                  ▼                  ▼
- Authentication      CMMS           Energy Module
-     │                  │                  │
-     └──────────────┬───┴──────────────────┘
-                    ▼
-              AI Services Layer
-                    │
-     ┌──────────────┼───────────────┐
-     ▼              ▼               ▼
- Predictive     Computer Vision   Analytics
- Maintenance
-                    │
-                    ▼
-               PostgreSQL
-                    │
-                 Redis/Celery
+Organization
+     │
+     └── Plant
+           │
+           └── Area
+                 │
+                 └── Asset
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+        Telemetry            Operations
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+              Events / Timeline
+                       │
+                       ▼
+                 Maintenance
+                       │
+                       ▼
+                Failure History
+                       │
+                       ▼
+             Predictive Intelligence
 ```
+
+This domain foundation allows future AI models to operate on real industrial context instead of existing as isolated machine-learning components.
 
 ---
 
-# 🛠 Technology Stack
+## ✨ Current Platform Foundation
 
-## Backend
+### Backend
 
-* Python 3.12
-* Django 5
-* Django REST Framework
-* SimpleJWT
+- Django-based modular architecture
+- Django REST Framework APIs
+- Custom identity/authentication layer
+- JWT authentication
+- Organization and asset domain foundations
+- Telemetry domain foundations
+- Maintenance domain foundations
+- Operational timeline and audit capabilities
+- Health-check endpoint
+- Environment-based configuration
+- Modular settings
 
-## Database
+### Infrastructure
 
-* PostgreSQL
-* Redis
+- PostgreSQL
+- Redis
+- Celery
+- Docker / Docker Compose
+- GitHub Actions CI
+- Pytest
+- Ruff / Black / isort tooling
 
-## Frontend
-
-* React
-* TypeScript (planned)
-
-## AI
-
-* PyTorch
-* YOLOv8
-* OpenCV
-* Scikit-learn
-
-## DevOps
-
-* Docker
-* Docker Compose
-* GitHub
-* Ruff
-* Black
-* isort
+The repository currently contains dedicated Django applications for areas including `identity`, `assets`, `telemetry`, `maintenance`, `operational_timeline`, `audit`, and `core`.
 
 ---
 
-# 📂 Repository Structure
+## 🏭 Product Roadmap
 
+### Foundation
+
+- [x] Project foundation
+- [x] Docker development environment
+- [x] PostgreSQL / Redis infrastructure
+- [x] Environment-based configuration
+- [x] Authentication foundation
+- [x] REST API foundation
+- [x] CI foundation
+
+### Industrial Core
+
+- [ ] Complete Organization hierarchy
+- [ ] Complete Plant / Area management
+- [ ] Complete Asset Registry
+- [ ] Asset relationships and criticality
+- [ ] Industrial telemetry ingestion
+- [ ] Operational events and timeline
+- [ ] Audit and traceability
+
+### Maintenance / CMMS
+
+- [ ] Work Orders
+- [ ] Preventive Maintenance
+- [ ] Corrective Maintenance
+- [ ] Maintenance Plans
+- [ ] Spare Parts Inventory
+- [ ] Maintenance KPIs
+- [ ] Failure history and root-cause data
+
+### Energy & Operations
+
+- [ ] Energy monitoring
+- [ ] Energy KPIs
+- [ ] Energy anomaly detection
+- [ ] Energy forecasting
+- [ ] Production/operations analytics
+
+### Industrial AI
+
+- [ ] Predictive Maintenance
+- [ ] Remaining Useful Life (RUL)
+- [ ] Failure prediction
+- [ ] Anomaly detection
+- [ ] AI-assisted maintenance decisions
+- [ ] Computer Vision
+- [ ] Conveyor monitoring
+- [ ] Industrial AI assistant
+- [ ] Digital Twin integration
+
+---
+
+## 🏗 Architecture
+
+```text
+                         Frontend
+                            │
+                            │ REST API
+                            ▼
+                  Django REST Framework
+                            │
+       ┌────────────────────┼────────────────────┐
+       │                    │                    │
+       ▼                    ▼                    ▼
+    Identity             Assets              Telemetry
+       │                    │                    │
+       └────────────────────┼────────────────────┘
+                            ▼
+                  Operational Timeline
+                            │
+                            ▼
+                       Maintenance
+                            │
+                            ▼
+                    Industrial Data Layer
+                            │
+              ┌─────────────┼─────────────┐
+              ▼             ▼             ▼
+        Predictive AI   Computer Vision  Analytics
+              │             │             │
+              └─────────────┼─────────────┘
+                            ▼
+                       AI Services
+                            │
+              ┌─────────────┴─────────────┐
+              ▼                           ▼
+         PostgreSQL                   Redis/Celery
 ```
+
+The architecture is intentionally modular so that AI and data-intensive services can evolve independently from the transactional Django domain.
+
+---
+
+## 🛠 Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Backend | Python, Django, Django REST Framework |
+| Authentication | JWT / SimpleJWT |
+| Database | PostgreSQL |
+| Async / Queue | Redis, Celery |
+| Testing | Pytest |
+| Code Quality | Ruff, Black, isort |
+| Infrastructure | Docker, Docker Compose |
+| CI/CD | GitHub Actions |
+| AI / ML | PyTorch, Scikit-learn |
+| Computer Vision | OpenCV, YOLO |
+| Frontend | React / TypeScript (planned / evolving) |
+
+---
+
+## 📂 Repository Structure
+
+```text
 ForgeMind/
-
-backend/
-frontend/
-services/
-docs/
-infrastructure/
-scripts/
-
+│
+├── backend/
+│   ├── apps/
+│   │   ├── assets/
+│   │   ├── audit/
+│   │   ├── core/
+│   │   ├── identity/
+│   │   ├── maintenance/
+│   │   ├── operational_timeline/
+│   │   └── telemetry/
+│   │
+│   └── config/
+│       ├── settings/
+│       ├── celery.py
+│       ├── urls.py
+│       └── ...
+│
+├── frontend/
+├── services/
+├── docs/
+├── infrastructure/
+├── scripts/
+└── .github/
+    └── workflows/
 ```
 
 ---
 
-# 🚧 Current Development Status
+## 🚧 Development Status
 
-| Sprint                             | Status         |
-| ---------------------------------- | -------------- |
-| Sprint 1 – Project Foundation      | ✅ Completed    |
-| Sprint 2 – Docker & Infrastructure | ✅ Completed    |
-| Sprint 3 – Authentication          | ✅ Completed    |
-| Sprint 4 – Organization & Assets   | 🚧 In Progress |
-| Sprint 5 – CMMS                    | ⏳ Planned      |
-| Sprint 6 – Energy Monitoring       | ⏳ Planned      |
-| Sprint 7 – AI Services             | ⏳ Planned      |
+ForgeMind is currently in the **industrial platform foundation phase**.
+
+The project has moved beyond basic project setup and authentication and is now building the core domain required for a production-grade industrial platform: **organizations, assets, telemetry, operational history, and maintenance**.
+
+The immediate priority is to establish a strong and consistent industrial data model before adding advanced predictive models and AI services.
 
 ---
 
-# 🎯 Project Goals
+## 🎯 Engineering Principles
 
-* Enterprise-grade architecture
-* Production-ready backend
-* Modular design
-* Industrial scalability
-* AI-first platform
-* Cloud-ready deployment
+ForgeMind is being built around several principles:
 
----
-
-# 🤝 Contributing
-
-Contributions, suggestions, and discussions are welcome.
-
-Please open an Issue before submitting large Pull Requests.
+1. **Domain-first architecture** — industrial concepts come before AI features.
+2. **Modularity** — each business capability should remain independently maintainable.
+3. **Traceability** — industrial events and maintenance decisions should be auditable.
+4. **Production readiness** — testing, CI, configuration, security, and observability matter from the beginning.
+5. **AI with context** — predictive models should consume meaningful industrial data and operational history.
+6. **Incremental delivery** — build a reliable industrial core before introducing complex AI workloads.
+7. **Cloud-ready design** — services should be deployable independently as the platform grows.
 
 ---
 
-# 📜 License
+## 🧪 Development
 
-This project is released under the MIT License.
+Clone the repository:
+
+```bash
+git clone https://github.com/amiradmin/ForgeMind.git
+cd ForgeMind
+```
+
+Backend development is container-ready and uses environment-based configuration. See the project documentation and `.env.example` for local configuration.
+
+Run the test suite from the backend directory with the project's configured Pytest setup.
 
 ---
 
-# 👨‍💻 Author
+## 🤝 Contributing
+
+ForgeMind is an open-source engineering project.
+
+Contributions, technical discussions, architecture suggestions, and industrial use cases are welcome.
+
+For substantial changes, please open an Issue first to discuss the proposed direction.
+
+---
+
+## 📜 License
+
+ForgeMind is distributed under the **Apache License 2.0**.
+
+---
+
+## 👨‍💻 Author
 
 **Amir Behvandi**
 
-Software Engineer
+Software Engineer focused on:
 
-Industrial AI • Django • Computer Vision • Predictive Maintenance
+- Industrial AI
+- Django / Python
+- Computer Vision
+- Predictive Maintenance
+- Enterprise Software Architecture
 
-GitHub:
-https://github.com/amiradmin
+GitHub: https://github.com/amiradmin
 
 ---
 
-⭐ If you find this project interesting, consider giving it a Star.
-
-
+⭐ If you are interested in Industrial AI, Predictive Maintenance, or intelligent enterprise platforms, consider starring the project.
 
 Copyright 2026 Amir Behvandi
-
-Licensed under the Apache License, Version 2.0

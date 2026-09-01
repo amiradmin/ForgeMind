@@ -286,6 +286,16 @@ ForgeMind is open to contributors and collaborators from Iran and around the wor
 
 You can participate as an industrial engineer, backend or frontend developer, data engineer, ML/CV engineer, researcher, technical writer, or product contributor.
 
+### Start here
+
+Choose a focused contribution that matches your background:
+
+- [Verify the 10-minute quickstart](https://github.com/amiradmin/ForgeMind/issues/122) — a contributor-friendly documentation and Django task
+- [Create the contributor architecture map](https://github.com/amiradmin/ForgeMind/issues/123) — architecture and technical-writing help
+- [Review industrial terminology](https://github.com/amiradmin/ForgeMind/issues/124) — industrial expertise welcome; no coding required
+
+Then:
+
 - Read the [contribution guide](CONTRIBUTING.md)
 - Report a reproducible bug through the Bug Report issue form
 - Propose a capability through the Feature Request issue form

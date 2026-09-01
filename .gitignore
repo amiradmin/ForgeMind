@@ -1,0 +1,41 @@
+# IDE / editor metadata
+.idea/
+.vscode/
+*.iml
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build / package artifacts
+build/
+dist/
+*.egg-info/
+
+# Frontend / Node
+node_modules/
+frontend/dist/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Local logs
+*.log

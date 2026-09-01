@@ -1,0 +1,43 @@
+name: Collaboration proposal
+description: Propose an open-source, research, industrial, or technical collaboration
+title: "[Collaboration] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ForgeMind welcomes collaboration from Iran and around the world. Keep confidential or commercial details out of this public form.
+  - type: input
+    id: role
+    attributes:
+      label: Your role or area of expertise
+      placeholder: Industrial engineer, Django developer, ML researcher, technical writer...
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Collaboration idea
+      description: What would you like to build, research, review, or contribute?
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Expected value
+      description: Who benefits and what outcome would make this collaboration successful?
+    validations:
+      required: true
+  - type: textarea
+    id: first_step
+    attributes:
+      label: Smallest useful first step
+      description: Suggest a focused milestone that can be completed and reviewed.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public information
+      options:
+        - label: I have not included credentials, personal data, proprietary plant data, or confidential client information.
+          required: true

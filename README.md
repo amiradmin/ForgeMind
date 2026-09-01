@@ -1,5 +1,9 @@
 # 🚀 ForgeMind
 
+[![Backend CI](https://github.com/amiradmin/ForgeMind/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/amiradmin/ForgeMind/actions/workflows/backend-ci.yml)
+[![Release](https://img.shields.io/github/v/release/amiradmin/ForgeMind)](https://github.com/amiradmin/ForgeMind/releases/latest)
+[![License](https://img.shields.io/github/license/amiradmin/ForgeMind)](LICENSE)
+
 > **Industrial AI & Enterprise Intelligence Platform for Heavy Industry**
 
 ForgeMind is an open-source, modular platform for industrial organizations that want to connect **assets, telemetry, operations, maintenance, and AI** in one system.
@@ -316,19 +320,27 @@ You can participate as an industrial engineer, backend or frontend developer, da
 
 ### Start here
 
-Choose a focused contribution that matches your background:
+If you are new to the project, use these curated queues instead of scanning the full backlog:
 
-- [Verify the 10-minute quickstart](https://github.com/amiradmin/ForgeMind/issues/122) — a contributor-friendly documentation and Django task
-- [Create the contributor architecture map](https://github.com/amiradmin/ForgeMind/issues/123) — architecture and technical-writing help
+- [Good first issues](https://github.com/amiradmin/ForgeMind/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22) — small, bounded newcomer tasks
+- [Help wanted](https://github.com/amiradmin/ForgeMind/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22) — contributions where outside help is especially welcome
+- [GitHub Discussions](https://github.com/amiradmin/ForgeMind/discussions) — introductions, questions, architecture conversations, and industrial use cases
+
+A few useful entry points:
+
+- [Verify the 10-minute quickstart](https://github.com/amiradmin/ForgeMind/issues/122) — fresh-clone verification and contributor documentation
+- [Add the first API walkthrough](https://github.com/amiradmin/ForgeMind/issues/128) — copy-pasteable Django/DRF API examples
+- [Configure pre-commit hooks](https://github.com/amiradmin/ForgeMind/issues/130) — small Python tooling contribution
+- [Create the documentation index](https://github.com/amiradmin/ForgeMind/issues/131) — newcomer-friendly documentation navigation
 - [Review industrial terminology](https://github.com/amiradmin/ForgeMind/issues/124) — industrial expertise welcome; no coding required
 
 Then:
 
 - Read the [contribution guide](CONTRIBUTING.md)
+- Comment on a focused issue with your intended approach before starting
 - Report a reproducible bug through the Bug Report issue form
 - Propose a capability through the Feature Request issue form
 - Submit an open-source, research, or industrial collaboration through the Collaboration Proposal issue form
-- Use GitHub Discussions for introductions, questions, architecture conversations, and industrial use cases
 - Review the [support](SUPPORT.md), [security](SECURITY.md), and [community](CODE_OF_CONDUCT.md) policies
 
 English and Persian participation are both welcome. Shared technical documentation is maintained primarily in English so the widest community can collaborate.

@@ -280,6 +280,23 @@ Run the test suite from the backend directory with the project's configured Pyte
 
 ---
 
+## 🌐 Community & Collaboration
+
+ForgeMind is open to contributors and collaborators from Iran and around the world.
+
+You can participate as an industrial engineer, backend or frontend developer, data engineer, ML/CV engineer, researcher, technical writer, or product contributor.
+
+- Read the [contribution guide](CONTRIBUTING.md)
+- Report a reproducible bug through the Bug Report issue form
+- Propose a capability through the Feature Request issue form
+- Submit an open-source, research, or industrial collaboration through the Collaboration Proposal issue form
+- Use GitHub Discussions for introductions, questions, architecture conversations, and industrial use cases
+- Review the [support](SUPPORT.md), [security](SECURITY.md), and [community](CODE_OF_CONDUCT.md) policies
+
+English and Persian participation are both welcome. Shared technical documentation is maintained primarily in English so the widest community can collaborate.
+
+---
+
 ## 🤝 Contributing
 
 ForgeMind is an open-source engineering project.

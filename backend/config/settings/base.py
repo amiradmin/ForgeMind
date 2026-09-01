@@ -219,7 +219,7 @@ SIMPLE_JWT = {
 }
 
 APP_NAME = "ForgeMind"
-APP_VERSION = "1.0.0"
+APP_VERSION = config("APP_VERSION", default="0.1.0")
 
 # ------------------------------------------------------------------------------
 # drf-spectacular OpenAPI Documentation
@@ -236,7 +236,7 @@ This API provides backend services for:
 - Organization hierarchy management
 - Industrial asset management
 - Asset monitoring foundation
-- AI-powered industrial intelligence
+- Industrial intelligence foundations
 
 Authentication:
 JWT Bearer Token authentication is required

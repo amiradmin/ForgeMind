@@ -273,14 +273,36 @@ ForgeMind is being built around several principles:
 
 ## 🧪 Development
 
-Clone the repository:
+### Docker quickstart
+
+Clone the repository and prepare the development environment:
 
 ```bash
 git clone https://github.com/amiradmin/ForgeMind.git
 cd ForgeMind
+cp .env.example backend/.env
 ```
 
-Backend development is container-ready and uses environment-based configuration. See the project documentation and `.env.example` for local configuration.
+Start PostgreSQL, Redis, Django, Celery worker, and Celery beat:
+
+```bash
+cd infrastructure/compose
+docker compose up --build -d
+docker compose exec backend python manage.py migrate
+```
+
+Verify the running platform:
+
+```bash
+curl http://localhost:8000/api/v1/health/
+```
+
+Interactive API documentation is available at:
+
+- Swagger UI: http://localhost:8000/api/docs/
+- ReDoc: http://localhost:8000/api/redoc/
+
+The first public foundation release is tracked as `v0.1.0`. See [CHANGELOG.md](CHANGELOG.md) for release details.
 
 Run the test suite from the backend directory with the project's configured Pytest setup.
 

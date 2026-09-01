@@ -8,6 +8,12 @@ The platform is designed for industries such as steel, mining, cement, power gen
 
 ForgeMind is being developed with a production-oriented engineering approach: modular Django architecture, REST APIs, PostgreSQL, Redis/Celery, Docker, automated testing, CI, and an extensible AI services layer.
 
+<p align="center">
+  <img src="docs/assets/forgemind-platform-overview.svg" alt="ForgeMind platform overview showing the implemented foundation and planned intelligence layer" width="100%">
+</p>
+
+<p align="center"><sub>Solid cards show the implemented platform foundation. The dashed card shows planned intelligence capabilities.</sub></p>
+
 ---
 
 ## 🌍 Vision

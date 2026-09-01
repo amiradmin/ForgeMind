@@ -1,0 +1,53 @@
+name: Feature request
+description: Propose an improvement or industrial capability
+title: "[Feature] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user, engineering, or industrial problem should be solved?
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: Who benefits?
+      description: Identify the executors, users, maintainers, or industrial roles affected.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest useful solution and its boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Suggested acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Assets and tenancy
+        - Telemetry and events
+        - Maintenance and CMMS
+        - Reliability and OEE
+        - Predictive Maintenance and AI
+        - Computer Vision
+        - API and backend
+        - Frontend and visualization
+        - Infrastructure and DevOps
+        - Documentation and community
+    validations:
+      required: true
